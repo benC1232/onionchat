@@ -25,6 +25,9 @@ private:
     std::map<int, IRequestHandler*> m_clients;
     void bindAndListen();
     void handleNewClient(int clientSocket);
+    //helper functions for reading and writing to a socket
+    void write();
+    void read();
 };
 
 
