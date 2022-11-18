@@ -11,6 +11,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string>
+#include <cstring>
 #include <algorithm>
 #include "IRequestHandler.h"
 #define PORT 5032
