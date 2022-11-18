@@ -3,7 +3,7 @@
 #
 
 # Add source to this project's executable.
-add_executable (tomersDad "tomersDad.cpp" "tomersDad.h")
+add_executable (tomersDad "tomersDad.cpp" "tomersDad.h" "server.cpp" "Server.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET tomersDad PROPERTY CXX_STANDARD 20)
