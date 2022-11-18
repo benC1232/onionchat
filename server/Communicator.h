@@ -13,6 +13,7 @@
 #include <string>
 #include <cstring>
 #include <algorithm>
+#include <vector>
 #include "IRequestHandler.h"
 #define PORT 5032
 class Communicator {
@@ -22,6 +23,7 @@ public:
     void startHandleRequests();
 private:
     int m_serverSocket;
+    std::vector<std::thread> threadVector;
     std::map<int, IRequestHandler*> m_clients;
     void bindAndListen();
     void handleNewClient(int clientSocket);
