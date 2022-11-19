@@ -11,13 +11,13 @@ class IRequestHandler;
 struct RequestResult
 {
     unsigned char* buffer;
+    int bufferSize;
     IRequestHandler* newHandler;
 };
 
 struct RequestInfo
 {
     unsigned char id;
-    time_t receivalTime;
     unsigned char* buffer;
 };
 
