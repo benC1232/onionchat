@@ -15,7 +15,9 @@
 #include <algorithm>
 #include <vector>
 #include "IRequestHandler.h"
+#include "HandlerStructs.h"
 #define PORT 5032
+#define MESSAGE_SIZE 65536
 class Communicator {
 public:
     Communicator();
@@ -28,8 +30,9 @@ private:
     void bindAndListen();
     void handleNewClient(int clientSocket);
     //helper functions for reading and writing to a socket
-    void write();
-    void read();
+    RequestInfo read();
+    void write(RequestResult message);
+    int getJsonSize(char *buffer);
 };
 
 

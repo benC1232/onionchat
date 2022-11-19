@@ -1,6 +1,3 @@
-//
-// Created by magshimim on 19-Nov-22.
-//
 
 #ifndef SERVER_HANDLERSTRUCTS_H
 #define SERVER_HANDLERSTRUCTS_H
