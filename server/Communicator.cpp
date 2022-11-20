@@ -57,7 +57,7 @@ void Communicator::bindAndListen()
     static struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
     int client_sock = accept(this->m_serverSocket, (struct sockaddr *) &client_sin, &addr_len);
-
+    this->threadVector.push_back(std::thread(Communicator::handleNewClient(), this->m_serverSocket));
 }
 /*
  * function handles a clients requests
@@ -95,7 +95,16 @@ RequestInfo Communicator::read()
     char buffer[MESSAGE_SIZE];
     int expected_data_len = sizeof(buffer);
     ssize_t read_bytes = recv(this->m_serverSocket, buffer, expected_data_len, 0);
-    return RequestInfo();
+    RequestInfo request;
+    request.id = buffer[0];
+    std::vector<unsigned char> json;
+    int size = getJsonSize(buffer);
+    for(int i = JSON_OFFSET; i<size; i++)
+    {
+        json.push_back(buffer[i])
+    }
+    request.buffer = json;
+    return request;
 }
 /*
  * extracts the length field from the packet

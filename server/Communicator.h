@@ -18,6 +18,7 @@
 #include "HandlerStructs.h"
 #define PORT 5032
 #define MESSAGE_SIZE 65536
+#define JSON_OFFSET 5
 class Communicator {
 public:
     Communicator();

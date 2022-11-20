@@ -15,7 +15,7 @@ struct RequestResult
 struct RequestInfo
 {
     unsigned char id;
-    unsigned char* buffer;
+    std::vector<unsigned char> buffer;
 };
 
 #endif //SERVER_HANDLERSTRUCTS_H
