@@ -20,6 +20,8 @@
 #define PORT 5032
 #define MESSAGE_SIZE 65536
 #define JSON_OFFSET 5
+#define SIGNOUT 215
+#define ROUTE 150
 class Communicator {
 public:
     Communicator();

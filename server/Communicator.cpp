@@ -63,12 +63,16 @@ void Communicator::bindAndListen() {
  * output: none
  */
 void Communicator::handleNewClient(int clientSocket, IRequestHandler *handler) {
+
     RequestInfo request;
     RequestResult result;
     request = read(clientSocket);
-    result = handler->handleRequest(request);
-    handler = result.newHandler;
-    write(result, clientSocket);
+    do  {
+        result = handler->handleRequest(request);
+        handler = result.newHandler;
+        write(result, clientSocket);
+    }while (request.id != SIGNOUT || request.id != 150);
+    close(clientSocket);
 }
 
 /*
