@@ -71,7 +71,7 @@ void Communicator::handleNewClient(int clientSocket, IRequestHandler *handler) {
         result = handler->handleRequest(request);
         handler = result.newHandler;
         write(result, clientSocket);
-    }while (request.id != SIGNOUT || request.id != 150);
+    }while (request.id != SIGNOUT || request.id != ROUTE);
     close(clientSocket);
 }
 
