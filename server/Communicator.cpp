@@ -57,7 +57,7 @@ void Communicator::bindAndListen()
     static struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
     int client_sock = accept(this->m_serverSocket, (struct sockaddr *) &client_sin, &addr_len);
-    this->threadVector.push_back(std::thread(Communicator::handleNewClient(), this->m_serverSocket));
+    this->threadVector.push_back(std::thread(&Communicator::handleNewClient, client_sock));
 }
 /*
  * function handles a clients requests
@@ -74,11 +74,11 @@ void Communicator::handleNewClient(int clientSocket)
  * input: message to be sent
  * output: none
  */
-void Communicator::write(RequestResult message)
+void Communicator::write(RequestResult message, int clientSock)
 {
     size_t data_len = message.bufferSize;
     //sending data
-    ssize_t sent_bytes = send(this->m_serverSocket, message.buffer, data_len, 0);
+    ssize_t sent_bytes = send(clientSock, message.buffer, data_len, 0);
     if (sent_bytes < 0)
     {
         throw std::runtime_error("message not sent succesfully");
@@ -89,19 +89,19 @@ void Communicator::write(RequestResult message)
  * input: none
  * output: message that was sent to server
  */
-RequestInfo Communicator::read()
+RequestInfo Communicator::read(int clientSock)
 {
     //finish later!!!
     char buffer[MESSAGE_SIZE];
     int expected_data_len = sizeof(buffer);
-    ssize_t read_bytes = recv(this->m_serverSocket, buffer, expected_data_len, 0);
+    ssize_t read_bytes = recv(clientSock, buffer, expected_data_len, 0);
     RequestInfo request;
     request.id = buffer[0];
     std::vector<unsigned char> json;
     int size = getJsonSize(buffer);
     for(int i = JSON_OFFSET; i<size; i++)
     {
-        json.push_back(buffer[i])
+        json.push_back(buffer[i]);
     }
     request.buffer = json;
     return request;

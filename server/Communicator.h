@@ -31,8 +31,8 @@ private:
     void bindAndListen();
     void handleNewClient(int clientSocket);
     //helper functions for reading and writing to a socket
-    RequestInfo read();
-    void write(RequestResult message);
+    RequestInfo read(int clientSock);
+    void write(RequestResult message, int clientSock);
     int getJsonSize(char *buffer);
 };
 
