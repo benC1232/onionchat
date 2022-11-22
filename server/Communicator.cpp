@@ -98,7 +98,7 @@ RequestInfo Communicator::read(int clientSock)
     RequestInfo request;
     request.id = buffer[0];
     std::vector<unsigned char> json;
-    int size = getJsonSize(buffer);
+    int size = Communicator::getJsonSize(buffer);
     for(int i = JSON_OFFSET; i<size; i++)
     {
         json.push_back(buffer[i]);
@@ -109,7 +109,7 @@ RequestInfo Communicator::read(int clientSock)
 /*
  * extracts the length field from the packet
  */
-int Communicator::getJsonSize(char buffer[])
+int Communicator::getJsonSize(const char* buffer)
 {
     //don't change!!!!!!!! it works!!!!!!!!
     const int size = buffer[1] << 24 | buffer[2] << 16 | buffer[3] << 8 | buffer[4];

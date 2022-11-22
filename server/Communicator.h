@@ -33,7 +33,7 @@ private:
     //helper functions for reading and writing to a socket
     static RequestInfo read(int clientSock);
     static void write(RequestResult message, int clientSock);
-    static int getJsonSize(char *buffer);
+    static int getJsonSize(const char *buffer);
 };
 
 
