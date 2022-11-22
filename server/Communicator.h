@@ -29,11 +29,11 @@ private:
     std::vector<std::thread> threadVector;
     std::map<int, IRequestHandler*> m_clients;
     void bindAndListen();
-    void handleNewClient(int clientSocket);
+    static void handleNewClient(int clientSocket);
     //helper functions for reading and writing to a socket
-    RequestInfo read(int clientSock);
-    void write(RequestResult message, int clientSock);
-    int getJsonSize(char *buffer);
+    static RequestInfo read(int clientSock);
+    static void write(RequestResult message, int clientSock);
+    static int getJsonSize(char *buffer);
 };
 
 
