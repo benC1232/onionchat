@@ -5,7 +5,7 @@
 class RequestHandler : public IRequestHandler{
 public:
     RequestHandler() = default;
-    ~RequestHandler();
+    ~RequestHandler() = default;
     bool isRequestRelevant(RequestInfo request) override;
     RequestResult handleRequest(RequestInfo request) override;
 private:
