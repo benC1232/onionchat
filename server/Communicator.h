@@ -16,6 +16,7 @@
 #include <vector>
 #include "IRequestHandler.h"
 #include "HandlerStructs.h"
+#include "RequestHandler.h"
 #define PORT 5032
 #define MESSAGE_SIZE 65536
 #define JSON_OFFSET 5
@@ -29,7 +30,7 @@ private:
     std::vector<std::thread> threadVector;
     std::map<int, IRequestHandler*> m_clients;
     void bindAndListen();
-    static void handleNewClient(int clientSocket);
+    static void handleNewClient(int clientSocket, IRequestHandler* handler);
     //helper functions for reading and writing to a socket
     static RequestInfo read(int clientSock);
     static void write(RequestResult message, int clientSock);

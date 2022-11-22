@@ -1,4 +1,3 @@
-
 #include "Communicator.h"
 /*
  * function creates a server socket
@@ -57,14 +56,16 @@ void Communicator::bindAndListen()
     static struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
     int client_sock = accept(this->m_serverSocket, (struct sockaddr *) &client_sin, &addr_len);
-    this->threadVector.push_back(std::thread(&Communicator::handleNewClient, client_sock));
+    RequestHandler* handler = new RequestHandler();
+    this->m_clients.insert({client_sock,handler});
+    this->threadVector.push_back(std::thread(&Communicator::handleNewClient, client_sock, handler));
 }
 /*
  * function handles a clients requests
  * input: socket
  * output: none
  */
-void Communicator::handleNewClient(int clientSocket)
+void Communicator::handleNewClient(int clientSocket, IRequestHandler* handler)
 {
 
 
