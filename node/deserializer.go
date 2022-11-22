@@ -1,7 +1,7 @@
-package node
+package main
 
 /*
-the followin code is a library code that only deserialize the msg from the server:
+the following code is a library code that only deserialize the msg from the server:
 the message is built by the following protocol:
 the protocol is built from 3 fields; the code field (1 byte), the length field (4 bytes) and the data field (length bytes; the max size of the data field is 2^32-1 bytes)
 
@@ -14,6 +14,7 @@ the code field can be one of the following values:
 
 	10 - the server is ready to receive a message
 	20 - route response to the client (the server has found a route to the destination)
+	30 - message from the server to the client (testing purposes)
 	50 - keep alive message from the server to the node
 	100 - error message from the server
 
@@ -23,6 +24,8 @@ the code field can be one of the following values:
 201-255: requests from the node to the server
 	210 - register to the server
 	220 - keep alive response from the node to the server
+	230 - message to the server from the node (testing purposes)
+
 
 
 the length field:
