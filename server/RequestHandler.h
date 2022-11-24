@@ -9,7 +9,8 @@ public:
     bool isRequestRelevant(RequestInfo request) override;
     RequestResult handleRequest(RequestInfo request) override;
 private:
-    //functions such as login signout and route request
+    RequestResult login(RequestInfo requestInfo);
+    RequestResult getRoute(RequestInfo requestInfo)
 };
 
 
