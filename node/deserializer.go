@@ -70,7 +70,7 @@ func DeserializeMessage(msg []byte) (Message, error) {
 	message.Length = binary.BigEndian.Uint32(msg[1:5])
 
 	//get the data
-	message.Data = msg[5:]
+	message.Data = msg[5 : 5+message.Length]
 
 	//check if the message is valid
 	if message.Length != uint32(len(message.Data)) {
@@ -83,3 +83,5 @@ func DeserializeMessage(msg []byte) (Message, error) {
 	//return the message
 	return message, nil
 }
+
+//[code|len|len|len]
