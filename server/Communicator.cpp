@@ -67,11 +67,12 @@ void Communicator::handleNewClient(int clientSocket, IRequestHandler *handler) {
     RequestInfo request;
     RequestResult result;
     request = read(clientSocket);
-    do  {
+    do {
         result = handler->handleRequest(request);
         handler = result.newHandler;
         write(result, clientSocket);
-    }while (request.id != SIGNOUT || request.id != ROUTE);
+    } while (request.id != SIGNOUT || request.id != ROUTE);
+    //closing the communication with the client
     close(clientSocket);
 }
 

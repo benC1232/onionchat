@@ -10,7 +10,7 @@ public:
     RequestResult handleRequest(RequestInfo request) override;
 private:
     RequestResult login(RequestInfo requestInfo);
-    RequestResult getRoute(RequestInfo requestInfo)
+    RequestResult getRoute(RequestInfo requestInfo);
 };
 
 
