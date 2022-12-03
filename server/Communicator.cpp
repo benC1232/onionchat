@@ -8,7 +8,7 @@
 Communicator::Communicator() {
     this->m_serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (this->m_serverSocket < 0) {
-        throw std::runtime_error("socket wasnt created successfully");
+        throw std::runtime_error("socket wasn't created successfully");
     }
 }
 
@@ -33,10 +33,10 @@ void Communicator::startHandleRequests() {
     sin.sin_addr.s_addr = INADDR_ANY;
     sin.sin_port = htons(PORT);
     if (bind(this->m_serverSocket, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-        throw std::runtime_error("couldnt bind server to port");
+        throw std::runtime_error("couldn't bind server to port");
     }
     if (listen(this->m_serverSocket, 5) < 0) {
-        throw std::runtime_error("couldnt listen to socket");
+        throw std::runtime_error("couldn't listen to socket");
     }
     while (true) {
         bindAndListen();
@@ -86,17 +86,16 @@ void Communicator::write(RequestResult message, int clientSock) {
     //sending data
     ssize_t sent_bytes = send(clientSock, message.buffer, data_len, 0);
     if (sent_bytes < 0) {
-        throw std::runtime_error("message not sent succesfully");
+        throw std::runtime_error("message not sent successfully");
     }
 }
 
 /*
- * function recieves data over socket
+ * function receives data over socket
  * input: none
  * output: message that was sent to server
  */
 RequestInfo Communicator::read(int clientSock) {
-    //finish later!!!
     char buffer[MESSAGE_SIZE];
     int expected_data_len = sizeof(buffer);
     ssize_t read_bytes = recv(clientSock, buffer, expected_data_len, 0);
@@ -117,6 +116,3 @@ int Communicator::getJsonSize(const char *buffer) {
     const int size = buffer[1] << 24 | buffer[2] << 16 | buffer[3] << 8 | buffer[4];
     return size;
 }
-
-
-
