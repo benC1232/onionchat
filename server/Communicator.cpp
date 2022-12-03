@@ -104,8 +104,8 @@ RequestInfo Communicator::read(int clientSock) {
     request.id = buffer[0];
     std::vector<unsigned char> json;
     int size = Communicator::getJsonSize(buffer);
-    for (int i = JSON_OFFSET; i < size; i++) {
-        json.push_back(buffer[i]);
+    for (int i = 0; i < size; i++) {
+        json.push_back(buffer[i + JSON_OFFSET]);
     }
     request.buffer = json;
     return request;
