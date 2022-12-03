@@ -103,7 +103,7 @@ RequestInfo Communicator::read(int clientSock) {
     request.id = buffer[0];
     int size = Communicator::getJsonSize(buffer);
     for (int i = 0; i < size; i++) {
-        request.buffer.push_back(buffer[i+JSON_OFFSET]);
+        request.buffer.push_back(buffer[i + JSON_OFFSET]);
     }
     return request;
 }
