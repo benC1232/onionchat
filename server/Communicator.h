@@ -17,7 +17,7 @@
 #include "IRequestHandler.h"
 #include "HandlerStructs.h"
 #include "RequestHandler.h"
-#define PORT 5032
+#define PORT 60005
 #define MESSAGE_SIZE 65536
 #define JSON_OFFSET 5
 #define SIGNOUT 215

@@ -96,18 +96,15 @@ void Communicator::write(RequestResult message, int clientSock) {
  * output: message that was sent to server
  */
 RequestInfo Communicator::read(int clientSock) {
-    //finish later!!!
     char buffer[MESSAGE_SIZE];
     int expected_data_len = sizeof(buffer);
     ssize_t read_bytes = recv(clientSock, buffer, expected_data_len, 0);
     RequestInfo request;
     request.id = buffer[0];
-    std::vector<unsigned char> json;
     int size = Communicator::getJsonSize(buffer);
-    for (int i = JSON_OFFSET; i < size; i++) {
-        json.push_back(buffer[i]);
+    for (int i = 0; i < size; i++) {
+        request.buffer.push_back(buffer[i+JSON_OFFSET]);
     }
-    request.buffer = json;
     return request;
 }
 
@@ -119,6 +116,3 @@ int Communicator::getJsonSize(const char *buffer) {
     const int size = buffer[1] << 24 | buffer[2] << 16 | buffer[3] << 8 | buffer[4];
     return size;
 }
-
-
-
