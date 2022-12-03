@@ -102,12 +102,10 @@ RequestInfo Communicator::read(int clientSock) {
     ssize_t read_bytes = recv(clientSock, buffer, expected_data_len, 0);
     RequestInfo request;
     request.id = buffer[0];
-    std::vector<unsigned char> json;
     int size = Communicator::getJsonSize(buffer);
     for (int i = 0; i < size; i++) {
-        json.push_back(buffer[i + JSON_OFFSET]);
+        request.buffer.push_back(buffer[i + JSON_OFFSET]);
     }
-    request.buffer = json;
     return request;
 }
 
