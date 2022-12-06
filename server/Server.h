@@ -2,6 +2,8 @@
 #define SERVER_SERVER_H
 #include <thread>
 #include "Communicator.h"
+#include"IDataBase.h"
+#include "RequestHandlerFactory.h"
 class Server {
 public:
     Server();
@@ -10,6 +12,9 @@ public:
 private:
     Communicator* m_communicator;
     std::thread* m_communicatorThread;
+    IDataBase* m_dataBase;
+    RequestHandlerFactory m_handlerFactory;
+
 };
 
 
