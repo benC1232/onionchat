@@ -5,7 +5,7 @@
 #include "json.hpp"
 
 #define JSON_OFFSET 5
-
+#define
 
 
 using Buffer = std::vector<unsigned char>;
