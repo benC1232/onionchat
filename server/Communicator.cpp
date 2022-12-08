@@ -5,7 +5,7 @@
  * input: none
  * output: none
  */
-Communicator::Communicator() {
+Communicator::Communicator(RequestHandlerFactory &mHandlerFactory) : m_handlerFactory(mHandlerFactory) {
     this->m_serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (this->m_serverSocket < 0) {
         throw std::runtime_error("socket wasn't created successfully");
@@ -52,7 +52,7 @@ void Communicator::bindAndListen() {
     static struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
     int client_sock = accept(this->m_serverSocket, (struct sockaddr *) &client_sin, &addr_len);
-    RequestHandler *handler = new RequestHandler();
+    RequestHandler *handler = new RequestHandler(&this->m_handlerFactory);
     this->m_clients.insert({client_sock, handler});
     this->threadVector.push_back(std::thread(&Communicator::handleNewClient, client_sock, handler));
 }
@@ -84,7 +84,7 @@ void Communicator::handleNewClient(int clientSocket, IRequestHandler *handler) {
 void Communicator::write(RequestResult message, int clientSock) {
     size_t data_len = message.bufferSize;
     //sending data
-    ssize_t sent_bytes = send(clientSock, message.buffer, data_len, 0);
+    ssize_t sent_bytes = send(clientSock, &message.buffer, data_len, 0);
     if (sent_bytes < 0) {
         throw std::runtime_error("message not sent successfully");
     }

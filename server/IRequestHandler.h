@@ -1,5 +1,4 @@
-#ifndef SERVER_IREQUESTHANDLER_H
-#define SERVER_IREQUESTHANDLER_H
+#pragma once
 #include "HandlerStructs.h"
 
 class IRequestHandler {
@@ -10,4 +9,3 @@ public:
 };
 
 
-#endif //SERVER_IREQUESTHANDLER_H

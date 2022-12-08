@@ -17,6 +17,7 @@
 #include "IRequestHandler.h"
 #include "HandlerStructs.h"
 #include "RequestHandler.h"
+#include "RequestHandlerFactory.h"
 #define PORT 60005
 #define MESSAGE_SIZE 65536
 #define JSON_OFFSET 5
@@ -24,13 +25,14 @@
 #define ROUTE 150
 class Communicator {
 public:
-    Communicator();
+    Communicator(RequestHandlerFactory &mHandlerFactory);
     ~Communicator();
     void startHandleRequests();
 private:
     int m_serverSocket;
     std::vector<std::thread> threadVector;
     std::map<int, IRequestHandler*> m_clients;
+    RequestHandlerFactory& m_handlerFactory;
     void bindAndListen();
     static void handleNewClient(int clientSocket, IRequestHandler* handler);
     //helper functions for reading and writing to a socket

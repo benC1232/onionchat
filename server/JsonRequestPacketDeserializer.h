@@ -5,17 +5,19 @@
 #include "json.hpp"
 
 #define JSON_OFFSET 5
-#define
 
 
 using Buffer = std::vector<unsigned char>;
 
 typedef struct LoginRequest{
     unsigned int status;
+    std::string s1;
+    std::string s2;
 }LoginRequest;
 
 typedef struct LogoutRequest{
     unsigned int status;
+    std::string s1;
 }LogoutRequest;
 
 typedef struct GetRouteRequest{

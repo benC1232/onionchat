@@ -1,8 +1,11 @@
-#ifndef SERVER_REQUESTHANDLERFACTORY_H
-#define SERVER_REQUESTHANDLERFACTORY_H
-#include "IRequestHandler.h"
-#include "LoginManager"
+#pragma once
+
+#include "LoginManager.h"
 #include "IDataBase.h"
+#include "IRequestHandler.h"
+#include "RequestHandler.h"
+
+class RequestHandler;
 
 class RequestHandlerFactory {
 private:
@@ -12,9 +15,10 @@ public:
     RequestHandlerFactory(IDataBase* dataBase);
     ~RequestHandlerFactory();
     IRequestHandler* createRequestHandler();
+    LoginManager* getLoginManager();
 };
 
 
 
 
-#endif //SERVER_REQUESTHANDLERFACTORY_H
+

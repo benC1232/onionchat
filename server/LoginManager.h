@@ -9,8 +9,9 @@ private:
 public:
     LoginManager(IDataBase* dataBase);
     ~LoginManager();
-    bool login(std::string username, std::string password);
-    bool logout(std::string username);
+    bool login(std::string s1, std::string s2);
+    bool logout(std::string s1);
+    bool getRoute(std::vector<NodeData> destination);
 };
 
 

@@ -1,7 +1,10 @@
 #include "Server.h"
 Server::Server()
 {
-    this->m_communicator = new Communicator();
+    this->m_dataBase;
+    this->m_handlerFactory = new RequestHandlerFactory(this->m_dataBase);
+    this->m_communicator = new Communicator(*this->m_handlerFactory);
+
 }
 
 Server::~Server()

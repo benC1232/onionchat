@@ -6,7 +6,7 @@
 
 RequestHandlerFactory::RequestHandlerFactory(IDataBase *dataBase) {
     m_dataBase = dataBase;
-    m_loginManager = new LoginManager(this->dataBase);
+    m_loginManager = new LoginManager(this->m_dataBase);
 }
 
 RequestHandlerFactory::~RequestHandlerFactory() {
@@ -15,5 +15,9 @@ RequestHandlerFactory::~RequestHandlerFactory() {
 }
 
 IRequestHandler* RequestHandlerFactory::createRequestHandler() {
-    return new LoginRequestHandler(m_loginManager);
+    return new RequestHandler(this);
+}
+
+LoginManager* RequestHandlerFactory::getLoginManager() {
+    return m_loginManager;
 }

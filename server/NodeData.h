@@ -2,8 +2,8 @@
 #include<iostream>
 
 typedef struct NodeData{
-    unsigned char ip[4];
-    unsigned char port[2];
+    std::string ip;
+    int port;
     std::string encryption;
     int key;
 }NodeData;

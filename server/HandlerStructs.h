@@ -5,9 +5,11 @@
 #include "IRequestHandler.h"
 class IRequestHandler;
 
+using Buffer = std::vector<unsigned char>;
+
 struct RequestResult
 {
-    unsigned char* buffer;
+    Buffer buffer;
     int bufferSize;
     IRequestHandler* newHandler;
 };

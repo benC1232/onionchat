@@ -22,8 +22,8 @@ std::string byteArrToString(unsigned char* arr, int size)
 
 std::string NodeDataVecToString(std::vector<NodeData> nodeDataVec){
     std::string output = "";
-    for(auto nodeData:nodeDataVec){
-        output += byteArrToString(nodeData.ip,4)+":"+ byteArrToString(nodeData.port,2)+":"+nodeData.encryption+":"+std::to_string(nodeData.key)+",";
+    for(auto nodeData: nodeDataVec){
+        output += nodeData.ip+":"+std::to_string(nodeData.port)+":"+nodeData.encryption+":"+std::to_string(nodeData.key)+",";
     }
     return output;
 }
