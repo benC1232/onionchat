@@ -22,12 +22,19 @@ def get_path():
         s.connect((HOST, PORT))
         s.sendall(parse_request(150, ""))
         data = s.recv(1024)
-        response = data[5:get_len(data)]
+        print(data)
+        response = data[5:get_len(data)+5]
+        return parse_response(response)
 
-        #parse json and turn it in to routes
 
 def get_len(msg):
     return int.from_bytes(msg[1:5], byteorder="big")
 def parse_request(code, json):
     data = int(code).to_bytes(1, byteorder="big") + int(len(json)).to_bytes(4, byteorder="big") + json.encode()
     return data
+def parse_response(msg):
+    loaded_msg = json.loads(msg.decode())['route']['node1']
+    #TODO: parse 3 nodes and not 1
+    node_list = []
+    node_list.append(Node(loaded_msg['ip'],loaded_msg['port'],loaded_msg['encryption'],0))
+    return node_list

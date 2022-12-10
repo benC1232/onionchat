@@ -66,7 +66,6 @@ void Communicator::handleNewClient(int clientSocket, IRequestHandler *handler) {
 
     RequestInfo request;
     RequestResult result = {};
-
     do {
         request = read(clientSocket);
         result = handler->handleRequest(request);

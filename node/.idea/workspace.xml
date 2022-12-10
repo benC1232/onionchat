@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0e64b5b-decc-4d16-bd49-6af054c9d82b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../client/server_comm.py" beforeDir="false" afterPath="$PROJECT_DIR$/../client/server_comm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/RequestHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../server/RequestHandler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/RequestHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/../server/RequestHandler.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/Communicator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Communicator.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,14 +63,15 @@
       <recent name="C:\Magshimim\ThirdYear\haifa-1204-onionchat\node\deserializer" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.go test node">
-    <configuration name="go build node main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Build.go build node">
+    <configuration name="go build node" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="node" />
       <target name="WSL - Ubuntu" />
       <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
+      <kind value="PACKAGE" />
+      <package value="node" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/../node|$PROJECT_DIR$/main.go" />
+      <filePath value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
     <configuration name="go test node" type="GoTestRunConfiguration" factoryName="Go Test" nameIsGenerated="true">
@@ -83,7 +84,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Go Build.go build node main.go" />
+      <item itemvalue="Go Build.go build node" />
       <item itemvalue="Go Test.go test node" />
     </list>
   </component>
