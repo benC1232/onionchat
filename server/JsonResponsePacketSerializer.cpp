@@ -20,6 +20,24 @@ std::string byteArrToString(unsigned char* arr, int size)
     return str;
 }
 
+
+
+nlohmann::json serializeNodeDataVector(std::vector<NodeData> nodeDataVector)
+{
+    nlohmann::json json;
+    nlohmann::json route;
+    for (int i = 0; i < nodeDataVector.size(); i++)
+    {
+        nlohmann::json node;
+        node["ip"] = nodeDataVector[i].ip;
+        node["port"] = nodeDataVector[i].port;
+        node["encryption"] = nodeDataVector[i].encryption;
+        route["node" + std::to_string(i + 1)] = node;
+    }
+    json["route"] = route;
+    return json;
+}
+
 std::string NodeDataVecToString(std::vector<NodeData> nodeDataVec){
     std::string output = "";
     for(auto nodeData: nodeDataVec){
@@ -72,10 +90,7 @@ Buffer JsonResponsePacketSerializer::serializeResponse(LogoutResponse logoutResp
 Buffer JsonResponsePacketSerializer::serializeResponse(GetRouteResponse getRouteResponse) {
     Buffer buffer;
     buffer.push_back(GET_ROUTE_RESPONSE_CODE);
-    const nlohmann::json jsonResponse {
-            {"status", ""+std::to_string(getRouteResponse.status)},
-            {"route", ""+ NodeDataVecToString(getRouteResponse.route)}
-    };
+    const nlohmann::json jsonResponse = serializeNodeDataVector(getRouteResponse.route);
     const std::string jsonString = nlohmann::to_string(jsonResponse);
     Buffer lenBuff = intToBuffer(jsonString.length());
     buffer.insert(buffer.end(), lenBuff.begin(), lenBuff.end());
