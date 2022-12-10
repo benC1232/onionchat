@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"node/deserializer"
 	"node/serializer"
+	"strconv"
 	"time"
 
 	"net"
@@ -145,7 +146,7 @@ func (communicator *Communicator) handleNewConnection(socket net.Conn) {
 	Port := deserializedMessage.Port
 	data := deserializedMessage.Data
 
-	socket2, err := net.Dial("tcp", IP+":"+string(Port))
+	socket2, err := net.Dial("tcp", IP+":"+strconv.Itoa(Port))
 	if err != nil {
 		panic(err)
 	}
