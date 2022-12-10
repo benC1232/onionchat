@@ -20,7 +20,7 @@ def get_path():
     PORT = server_settings['server_port']
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
-        s.sendall(parse_request(210, ""))
+        s.sendall(parse_request(150, ""))
         data = s.recv(1024)
         # TODO: process json response from server
 

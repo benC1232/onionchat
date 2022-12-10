@@ -7,7 +7,7 @@
 #define LOGIN_CODE 210
 #define LOG_OUT_CODE 215
 #define ERROR_CODE 100
-#define GET_ROUTE_CODE 4150
+#define GET_ROUTE_CODE 150
 
 
 RequestHandler::RequestHandler(RequestHandlerFactory *requestHandler) {
@@ -42,6 +42,7 @@ RequestResult RequestHandler::handleRequest(RequestInfo request) {
         ErrorResponse num;
         num.message = "error while handling request [login request handler has received a wrong code]";
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
+        result.bufferSize = result.buffer.size();
         result.newHandler = this;
 
     }
@@ -62,6 +63,7 @@ RequestResult RequestHandler::login(RequestInfo requestInfo) const{
     if(this->m_requestHandlerFactory->getLoginManager()->login(lr.s1,lr.s2)){
         result.newHandler = nullptr;
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
+        result.bufferSize = result.buffer.size();
     }
     else
     {
@@ -70,6 +72,7 @@ RequestResult RequestHandler::login(RequestInfo requestInfo) const{
         ErrorResponse err;
         err.message = "Login failed";
         result.buffer = JsonResponsePacketSerializer::serializeResponse(err);
+        result.bufferSize = result.buffer.size();
     }
     return result;
 
@@ -86,6 +89,7 @@ RequestResult RequestHandler::logout(RequestInfo requestInfo) const{
     if(this->m_requestHandlerFactory->getLoginManager()->logout(lr.s1)){
         result.newHandler = nullptr;
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
+        result.bufferSize = result.buffer.size();
     }
     else
     {
@@ -94,6 +98,7 @@ RequestResult RequestHandler::logout(RequestInfo requestInfo) const{
         ErrorResponse err;
         err.message = "Logout failed";
         result.buffer = JsonResponsePacketSerializer::serializeResponse(err);
+        result.bufferSize = result.buffer.size();
     }
     return result;
 
@@ -114,12 +119,14 @@ RequestResult RequestHandler::getRoute(RequestInfo requestInfo) const {
     if (this->m_requestHandlerFactory->getLoginManager()->getRoute(grr.route)) {
         result.newHandler = nullptr;
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
+        result.bufferSize = result.buffer.size();
     } else {
         result.newHandler = this->m_requestHandlerFactory->createRequestHandler();
         num.status = ERROR_CODE;
         ErrorResponse err;
         err.message = "Get route failed";
         result.buffer = JsonResponsePacketSerializer::serializeResponse(err);
+        result.bufferSize = result.buffer.size();
     }
     return result;
 }
