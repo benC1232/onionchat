@@ -26,7 +26,7 @@ type DeserializedMessageFromNode struct {
 	length int
 	IP     string
 	Port   int
-	data   []byte
+	Data   []byte
 }
 
 // the deserializer
@@ -59,7 +59,7 @@ the data field is a json string
 
 // when deserializing, it will return a struct with the above fields
 type DeserializedMessageFromServer struct {
-	code   int
+	Code   int
 	length int
 	data   map[string]interface{}
 }

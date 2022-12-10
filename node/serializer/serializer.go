@@ -70,26 +70,26 @@ the data field is a json string
 
 // the serializer will get a struct with the above fields and return a byte array
 type SerializedMessageToServer struct {
-	code   int
-	length int
-	data   []byte
+	Code   int
+	Length int
+	Data   []byte
 }
 
 // the serializer
 func SerializeToServer(serializedMessageToServer SerializedMessageToServer) []byte {
 	//get the code field
 	code := make([]byte, 1)
-	code[0] = byte(serializedMessageToServer.code)
+	code[0] = byte(serializedMessageToServer.Code)
 
 	//get the length field
 	length := make([]byte, 4)
-	length[0] = byte(serializedMessageToServer.length >> 24)
-	length[1] = byte(serializedMessageToServer.length >> 16)
-	length[2] = byte(serializedMessageToServer.length >> 8)
-	length[3] = byte(serializedMessageToServer.length)
+	length[0] = byte(serializedMessageToServer.Length >> 24)
+	length[1] = byte(serializedMessageToServer.Length >> 16)
+	length[2] = byte(serializedMessageToServer.Length >> 8)
+	length[3] = byte(serializedMessageToServer.Length)
 
 	//get the data field
-	dataField := serializedMessageToServer.data
+	dataField := serializedMessageToServer.Data
 
 	//concatenate the fields
 	serializedMessage := append(code, length...)
