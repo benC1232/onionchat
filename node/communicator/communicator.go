@@ -103,7 +103,7 @@ func (communicator *Communicator) Delete() {
 }
 
 func (communicator *Communicator) Listen() {
-	socket, err := net.Listen("tcp", "127.0.0.1:5432")
+	socket, err := net.Listen("tcp", "127.0.0.1:8686")
 	if err != nil {
 		panic(err)
 	}

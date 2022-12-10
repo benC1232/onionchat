@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0e64b5b-decc-4d16-bd49-6af054c9d82b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../client/server_comm.py" beforeDir="false" afterPath="$PROJECT_DIR$/../client/server_comm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../client/dest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/routing.py" beforeDir="false" afterPath="$PROJECT_DIR$/../client/routing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/Communicator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Communicator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/communicator/communicator.go" beforeDir="false" afterPath="$PROJECT_DIR$/communicator/communicator.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deserializer/deserializer.go" beforeDir="false" afterPath="$PROJECT_DIR$/deserializer/deserializer.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,5 +95,16 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/communicator/communicator.go</url>
+          <line>150</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

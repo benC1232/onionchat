@@ -2,6 +2,7 @@ package deserializer
 
 import (
 	"encoding/json"
+	"strconv"
 )
 
 const (
@@ -20,7 +21,10 @@ type DeserializedMessageFromNode struct {
 func DeserializeFromNode(data []byte) DeserializedMessageFromNode {
 	length := int(data[0])<<24 + int(data[1])<<16 + int(data[2])<<8 + int(data[3])
 
-	ip := string(data[4]) + "." + string(data[5]) + "." + string(data[6]) + "." + string(data[7])
+	ip := strconv.Itoa(int(data[4])) + "." +
+		strconv.Itoa(int(data[5])) + "." +
+		strconv.Itoa(int(data[6])) + "." +
+		strconv.Itoa(int(data[7]))
 
 	port := int(data[8])<<8 + int(data[9])
 

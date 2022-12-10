@@ -8,6 +8,6 @@ def build_request(nodes, dest, content):
         port_bytes = node.port.to_bytes(2,'big')
         msg+=ip_bytes+port_bytes
     dest_bytes = socket.inet_aton(dest[0])+dest[1].to_bytes(2,'big')
-    msg = len(content).to_bytes(4, 'big') + msg + dest_bytes + content.decode()
+    msg = len(content).to_bytes(4, 'big') + msg + dest_bytes + content.encode()
     return msg
 
