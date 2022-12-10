@@ -12,7 +12,7 @@ public:
     bool isRequestRelevant(RequestInfo request) override;
     RequestResult handleRequest(RequestInfo request) override;
 private:
-    RequestResult login(RequestInfo requestInfo) const;
+    RequestResult login(RequestInfo requestInfo);
     RequestResult logout(RequestInfo requestInfo) const;
     RequestResult getRoute(RequestInfo requestInfo) const;
     RequestHandlerFactory* m_requestHandlerFactory;

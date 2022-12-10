@@ -7,6 +7,8 @@
     <list default="true" id="c0e64b5b-decc-4d16-bd49-6af054c9d82b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/RequestHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../server/RequestHandler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/RequestHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/../server/RequestHandler.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +50,7 @@
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "C:/maghw/year3/haifa-1204-onionchat/node",
+    "last_opened_file_path": "C:/maghw/year3/haifa-1204-onionchat/node/main.go",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "run.code.analysis.last.selected.profile": "pProject Default"
@@ -61,7 +63,16 @@
       <recent name="C:\Magshimim\ThirdYear\haifa-1204-onionchat\node\deserializer" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Test.go test node">
+    <configuration name="go build node main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+      <module name="node" />
+      <target name="WSL - Ubuntu" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/../node|$PROJECT_DIR$/main.go" />
+      <method v="2" />
+    </configuration>
     <configuration name="go test node" type="GoTestRunConfiguration" factoryName="Go Test" nameIsGenerated="true">
       <module name="node" />
       <working_directory value="$PROJECT_DIR$" />
@@ -71,6 +82,10 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Go Build.go build node main.go" />
+      <item itemvalue="Go Test.go test node" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">

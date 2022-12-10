@@ -50,7 +50,7 @@ RequestResult RequestHandler::handleRequest(RequestInfo request) {
 
 }
 
-RequestResult RequestHandler::login(RequestInfo requestInfo) const{
+RequestResult RequestHandler::login(RequestInfo requestInfo) {
     RequestResult result;
     LoginResponse num;
     num.status = LOGIN_CODE;
@@ -61,9 +61,10 @@ RequestResult RequestHandler::login(RequestInfo requestInfo) const{
     };
     //missing deserializer content in the current iteration
     if(this->m_requestHandlerFactory->getLoginManager()->login(lr.s1,lr.s2)){
-        result.newHandler = nullptr;
+        result.newHandler = this;
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
         result.bufferSize = result.buffer.size();
+
     }
     else
     {
