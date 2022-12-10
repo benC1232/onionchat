@@ -22,9 +22,12 @@ def get_path():
         s.connect((HOST, PORT))
         s.sendall(parse_request(150, ""))
         data = s.recv(1024)
-        # TODO: process json response from server
+        response = data[5:get_len(data)]
 
+        #parse json and turn it in to routes
 
+def get_len(msg):
+    return int.from_bytes(msg[1:5], byteorder="big")
 def parse_request(code, json):
     data = int(code).to_bytes(1, byteorder="big") + int(len(json)).to_bytes(4, byteorder="big") + json.encode()
     return data
