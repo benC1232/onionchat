@@ -39,6 +39,7 @@ private:
     static RequestInfo read(int clientSock);
     static void write(RequestResult message, int clientSock);
     static int getJsonSize(const char *buffer);
+    static std::string bufferToStr(Buffer input);
 };
 
 

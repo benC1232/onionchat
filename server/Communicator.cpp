@@ -84,7 +84,8 @@ void Communicator::handleNewClient(int clientSocket, IRequestHandler *handler) {
 void Communicator::write(RequestResult message, int clientSock) {
     size_t data_len = message.bufferSize;
     //sending data
-    ssize_t sent_bytes = send(clientSock, &message.buffer, data_len, 0);
+
+    ssize_t sent_bytes = send(clientSock, bufferToStr(message.buffer).c_str(), data_len, 0);
     if (sent_bytes < 0) {
         throw std::runtime_error("message not sent successfully");
     }
@@ -115,4 +116,12 @@ int Communicator::getJsonSize(const char *buffer) {
     //don't change!!!!!!!! it works!!!!!!!!
     const int size = buffer[1] << 24 | buffer[2] << 16 | buffer[3] << 8 | buffer[4];
     return size;
+}
+
+std::string Communicator::bufferToStr(Buffer input) {
+    std::string str;
+    for (char byte: input) {
+        str.push_back(byte);
+    }
+    return str;
 }
