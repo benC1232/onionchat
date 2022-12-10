@@ -14,7 +14,7 @@ RequestHandlerFactory::~RequestHandlerFactory() {
     delete m_dataBase;
 }
 
-IRequestHandler* RequestHandlerFactory::createRequestHandler() {
+RequestHandler* RequestHandlerFactory::createRequestHandler() {
     return new RequestHandler(this);
 }
 

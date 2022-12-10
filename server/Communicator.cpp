@@ -52,7 +52,7 @@ void Communicator::bindAndListen() {
     static struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
     int client_sock = accept(this->m_serverSocket, (struct sockaddr *) &client_sin, &addr_len);
-    RequestHandler *handler = new RequestHandler(&this->m_handlerFactory);
+    RequestHandler *handler = this->m_handlerFactory.createRequestHandler();
     this->m_clients.insert({client_sock, handler});
     this->threadVector.push_back(std::thread(&Communicator::handleNewClient, client_sock, handler));
 }
@@ -65,13 +65,14 @@ void Communicator::bindAndListen() {
 void Communicator::handleNewClient(int clientSocket, IRequestHandler *handler) {
 
     RequestInfo request;
-    RequestResult result;
-    request = read(clientSocket);
+    RequestResult result = {};
+
     do {
+        request = read(clientSocket);
         result = handler->handleRequest(request);
         handler = result.newHandler;
         write(result, clientSocket);
-    } while (request.id != SIGNOUT || request.id != ROUTE);
+    } while (request.id != SIGNOUT && request.id != ROUTE);
     //closing the communication with the client
     close(clientSocket);
 }

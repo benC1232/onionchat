@@ -14,7 +14,7 @@ private:
 public:
     RequestHandlerFactory(IDataBase* dataBase);
     ~RequestHandlerFactory();
-    IRequestHandler* createRequestHandler();
+    RequestHandler* createRequestHandler();
     LoginManager* getLoginManager();
 };
 
