@@ -109,25 +109,22 @@ RequestResult RequestHandler::getRoute(RequestInfo requestInfo) const {
     RequestResult result;
     GetRouteResponse num;
     num.status = GET_ROUTE_CODE;
-    auto r = std::vector<NodeData>();
-    r.push_back({"127.0.0.1", 8686, "None", 0});
-    GetRouteRequest grr{
-        status: 1,
-        route: r
-    };
+    num.route.push_back({"127.0.0.1", 8686, "None", 0});
+
     //missing deserializer content in the current iteration
-    if (this->m_requestHandlerFactory->getLoginManager()->getRoute(grr.route)) {
+    //if (this->m_requestHandlerFactory->getLoginManager()->getRoute(nullptr)) {
         result.newHandler = nullptr;
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
         result.bufferSize = result.buffer.size();
-    } else {
+    //}
+    /*else {
         result.newHandler = this->m_requestHandlerFactory->createRequestHandler();
         num.status = ERROR_CODE;
         ErrorResponse err;
         err.message = "Get route failed";
         result.buffer = JsonResponsePacketSerializer::serializeResponse(err);
         result.bufferSize = result.buffer.size();
-    }
+    }*/
     return result;
 }
 
