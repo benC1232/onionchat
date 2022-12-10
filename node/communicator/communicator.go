@@ -10,7 +10,7 @@ import (
 	"net"
 )
 
-const SERVER string = "127.0.0.1:5432"
+const SERVER string = "127.0.0.1:60005"
 
 type Pair struct {
 	socket1 net.Conn
