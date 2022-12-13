@@ -3,18 +3,14 @@
 //
 #include "APICommunicator.h"
 std::string getIpData(std::string ip) {
-    int sock;
+    int sock = socket(AF_INET, SOCK_STREAM, 0);;
     struct sockaddr_in client;
     int PORT = 80;
-    struct hostent * host = gethostbyname("ip-api.com");
 
-    if ( (host == NULL) || (host->h_addr == NULL) ) {
-        throw std::runtime_error("error retreiving dns data");
-    }
     bzero(&client, sizeof(client));
     client.sin_family = AF_INET;
     client.sin_port = htons( PORT );
-    memcpy(&client.sin_addr, host->h_addr, host->h_length);
+    client.sin_addr.s_addr = inet_addr("208.95.112.1");
     if (sock < 0) {
         throw std::runtime_error("error creating socket");
     }

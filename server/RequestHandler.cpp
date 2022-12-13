@@ -1,6 +1,7 @@
 #include "RequestHandler.h"
 #include "JsonRequestPacketDeserializer.h"
 #include "JsonResponsePacketSerializer.h"
+#include "APICommunicator.h"
 #include "HandlerStructs.h"
 #include"NodeData.h"
 #include <vector>
@@ -25,6 +26,7 @@ bool RequestHandler::isRequestRelevant(RequestInfo request) {
 RequestResult RequestHandler::handleRequest(RequestInfo request) {
     RequestResult result;
 
+    std::cout << getIpData(this->ip) << std::endl;
     //log in
     if(request.id == LOGIN_CODE){
         result = login(request);
