@@ -52,7 +52,8 @@ void Communicator::bindAndListen() {
     static struct sockaddr_in client_sin;
     unsigned int addr_len = sizeof(client_sin);
     int client_sock = accept(this->m_serverSocket, (struct sockaddr *) &client_sin, &addr_len);
-    RequestHandler *handler = this->m_handlerFactory.createRequestHandler();
+    std::string ip = std::string(inet_ntoa(client_sin.sin_addr));
+    RequestHandler *handler = this->m_handlerFactory.createRequestHandler(ip);
     this->m_clients.insert({client_sock, handler});
     this->threadVector.push_back(std::thread(&Communicator::handleNewClient, client_sock, handler));
 }

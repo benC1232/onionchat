@@ -10,9 +10,9 @@
 #define GET_ROUTE_CODE 150
 
 
-RequestHandler::RequestHandler(RequestHandlerFactory *requestHandler) {
+RequestHandler::RequestHandler(RequestHandlerFactory *requestHandler, std::string ip) {
     this->m_requestHandlerFactory = requestHandler;
-
+    this->ip = ip;
 }
 
 
@@ -68,7 +68,7 @@ RequestResult RequestHandler::login(RequestInfo requestInfo) {
     }
     else
     {
-        result.newHandler = this->m_requestHandlerFactory->createRequestHandler();
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip);
         num.status = ERROR_CODE;
         ErrorResponse err;
         err.message = "Login failed";
@@ -94,7 +94,7 @@ RequestResult RequestHandler::logout(RequestInfo requestInfo) const{
     }
     else
     {
-        result.newHandler = this->m_requestHandlerFactory->createRequestHandler();
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip);
         num.status = ERROR_CODE;
         ErrorResponse err;
         err.message = "Logout failed";

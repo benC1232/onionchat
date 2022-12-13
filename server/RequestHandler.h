@@ -1,12 +1,13 @@
 #pragma once
 #include "RequestHandlerFactory.h"
 #include "IRequestHandler.h"
+#include <string>
 
 class RequestHandlerFactory;
 
 class RequestHandler : public IRequestHandler{
 public:
-    RequestHandler(RequestHandlerFactory* requestHandler);
+    RequestHandler(RequestHandlerFactory* requestHandler, std::string ip);
 
     ~RequestHandler() = default;
     bool isRequestRelevant(RequestInfo request) override;
@@ -16,6 +17,7 @@ private:
     RequestResult logout(RequestInfo requestInfo) const;
     RequestResult getRoute(RequestInfo requestInfo) const;
     RequestHandlerFactory* m_requestHandlerFactory;
+    std::string ip;
 };
 
 
