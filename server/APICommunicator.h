@@ -16,6 +16,6 @@
 #include <exception>
 
 std::string getIpData(std::string ip);
-
+std::string getResponseBody(std::string response);
 
 #endif //SERVER_APICOMMUNICATOR_H

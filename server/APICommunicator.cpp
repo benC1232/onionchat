@@ -6,7 +6,6 @@ std::string getIpData(std::string ip) {
     int sock = socket(AF_INET, SOCK_STREAM, 0);;
     struct sockaddr_in client;
     int PORT = 80;
-
     bzero(&client, sizeof(client));
     client.sin_family = AF_INET;
     client.sin_port = htons( PORT );
@@ -19,7 +18,7 @@ std::string getIpData(std::string ip) {
         throw std::runtime_error("could not connect");
     }
     std::stringstream ss;
-    ss << "GET /json/" << ip << "fields=60957 HTTP/1.1\r\n"
+    ss << "GET /json/" << ip << "?fields=1108505 HTTP/1.1\r\n"
     << "Host: ip-api.com\r\n"
     << "Accept: application/json\r\n"
     << "\r\n\r\n";
@@ -33,5 +32,14 @@ std::string getIpData(std::string ip) {
     n = recv(sock, buffer, sizeof(buffer), 0);
     raw_site.append(buffer, n);
     close(sock);
-    return raw_site;
+
+    return getResponseBody(raw_site);
+}
+//used this https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
+std::string getResponseBody(std::string response) {
+    size_t body = response.find("\r\n\r\n");
+    if (body == std::string::npos) {
+        return "";
+    }
+    return response.substr(body + 4);
 }
