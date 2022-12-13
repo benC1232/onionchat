@@ -30,9 +30,8 @@ std::string getIpData(std::string ip) {
     int n;
     std::string raw_site;
     char buffer[4096];
-    while ((n = recv(sock, buffer, sizeof(buffer), 0)) > 0){
-        raw_site.append(buffer, n);
-    }
+    n = recv(sock, buffer, sizeof(buffer), 0);
+    raw_site.append(buffer, n);
     close(sock);
     return raw_site;
 }
