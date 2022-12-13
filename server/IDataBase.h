@@ -11,7 +11,6 @@ public:
     virtual void addNewNode(std::string placeHolder1, std::string placeHolder2, std::string placeHolder3) = 0;
     virtual void deleteNode(std::string placeHolder1) = 0;
     virtual bool isUserExist(std::string placeHolder1) = 0;
-    virtual void addUser(std::string username, std::string password) = 0;
     virtual bool doesPasswordMatch(std::string username, std::string password) = 0;
 };
 

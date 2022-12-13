@@ -54,13 +54,13 @@ RequestResult RequestHandler::login(RequestInfo requestInfo) {
     RequestResult result;
     LoginResponse num;
     num.status = LOGIN_CODE;
-    const LoginRequest lr{
+    const LoginRequest loginRequest{
         status: 1,
         s1: "s1",
         s2: "s2"
     };
     //missing deserializer content in the current iteration
-    if(this->m_requestHandlerFactory->getLoginManager()->login(lr.s1,lr.s2)){
+    if(this->m_requestHandlerFactory->getLoginManager()->login(loginRequest.s1,loginRequest.s2)){
         result.newHandler = this;
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
         result.bufferSize = result.buffer.size();
@@ -83,11 +83,11 @@ RequestResult RequestHandler::logout(RequestInfo requestInfo) const{
     RequestResult result;
     LogoutResponse num;
     num.status = LOG_OUT_CODE;
-    const LogoutRequest lr{
+    const LogoutRequest logoutRequest{
         status: 1,
         s1: "s1",
     };
-    if(this->m_requestHandlerFactory->getLoginManager()->logout(lr.s1)){
+    if(this->m_requestHandlerFactory->getLoginManager()->logout(logoutRequest.s1)){
         result.newHandler = nullptr;
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
         result.bufferSize = result.buffer.size();
