@@ -14,8 +14,8 @@ RequestHandlerFactory::~RequestHandlerFactory() {
     delete m_dataBase;
 }
 
-RequestHandler* RequestHandlerFactory::createRequestHandler() {
-    return new RequestHandler(this);
+RequestHandler* RequestHandlerFactory::createRequestHandler(std::string ip) {
+    return new RequestHandler(this, ip);
 }
 
 LoginManager* RequestHandlerFactory::getLoginManager() {

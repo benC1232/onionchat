@@ -1,6 +1,7 @@
 #include "RequestHandler.h"
 #include "JsonRequestPacketDeserializer.h"
 #include "JsonResponsePacketSerializer.h"
+#include "APICommunicator.h"
 #include "HandlerStructs.h"
 #include"NodeData.h"
 #include <vector>
@@ -10,9 +11,9 @@
 #define GET_ROUTE_CODE 150
 
 
-RequestHandler::RequestHandler(RequestHandlerFactory *requestHandler) {
+RequestHandler::RequestHandler(RequestHandlerFactory *requestHandler, std::string ip) {
     this->m_requestHandlerFactory = requestHandler;
-
+    this->ip = ip;
 }
 
 
@@ -25,6 +26,7 @@ bool RequestHandler::isRequestRelevant(RequestInfo request) {
 RequestResult RequestHandler::handleRequest(RequestInfo request) {
     RequestResult result;
 
+    std::cout << getIpData(this->ip) << std::endl;
     //log in
     if(request.id == LOGIN_CODE){
         result = login(request);
@@ -68,7 +70,7 @@ RequestResult RequestHandler::login(RequestInfo requestInfo) {
     }
     else
     {
-        result.newHandler = this->m_requestHandlerFactory->createRequestHandler();
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip);
         num.status = ERROR_CODE;
         ErrorResponse err;
         err.message = "Login failed";
@@ -94,7 +96,7 @@ RequestResult RequestHandler::logout(RequestInfo requestInfo) const{
     }
     else
     {
-        result.newHandler = this->m_requestHandlerFactory->createRequestHandler();
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip);
         num.status = ERROR_CODE;
         ErrorResponse err;
         err.message = "Logout failed";
