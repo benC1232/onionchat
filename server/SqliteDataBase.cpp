@@ -22,8 +22,6 @@ SqliteDataBase::SqliteDataBase() {
                         "IP TEXT NOT NULL,"
                         "Port int NOT NULL,"
                         "ISP TEXT NOT NULL,"
-                        "owner TEXT NOT NULL,"
-                        "BandWidth int NOT NULL"
                         ");";
     char* zErrMsg = 0;
     rc = sqlite3_exec(this->db, sql.c_str(), nullptr, 0, &zErrMsg);
@@ -41,8 +39,8 @@ SqliteDataBase::~SqliteDataBase() {
 }
 
 bool SqliteDataBase::addNewNode(NewNode newNodeStruct){
-    std::string sql = "INSERT INTO Nodes (EncryptionType, PublicKey, PrivateKey, IP, Port, ISP, owner, BandWidth) "
-                      "VALUES ('" + newNodeStruct.encryptionType + "', " + std::to_string(newNodeStruct.publicKey) + ", " + std::to_string(newNodeStruct.privateKey) + ", '" + newNodeStruct.ip + "', " + std::to_string(newNodeStruct.port) + ", '" + newNodeStruct.isp + "', '" + newNodeStruct.owner + "', " + std::to_string(newNodeStruct.bandWidth) + ");";
+    std::string sql = "INSERT INTO Nodes (EncryptionType, PublicKey, PrivateKey, IP, Port, ISP) "
+                      "VALUES ('" + newNodeStruct.encryptionType + "', " + std::to_string(newNodeStruct.publicKey) + ", " + std::to_string(newNodeStruct.privateKey) + ", '" + newNodeStruct.ip + "', " + std::to_string(newNodeStruct.port) + ", '" + newNodeStruct.isp +");";
     char* zErrMsg = 0;
     int rc = sqlite3_exec(this->db, sql.c_str(), nullptr, 0, &zErrMsg);
     if (rc != SQLITE_OK) {

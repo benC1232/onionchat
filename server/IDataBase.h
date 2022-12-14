@@ -12,8 +12,7 @@ typedef struct NewNode{
     std::string ip;
     int port;
     std::string isp;
-    std::string owner;
-    int bandWidth;
+
 
 } NewNode;
 

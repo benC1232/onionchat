@@ -18,7 +18,7 @@ typedef struct LoginRequest{
 
 typedef struct LogoutRequest{
     unsigned int status;
-    std::string s1;
+    std::string IP;
 }LogoutRequest;
 
 typedef struct GetRouteRequest{
