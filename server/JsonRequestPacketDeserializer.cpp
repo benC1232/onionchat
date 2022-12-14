@@ -19,13 +19,13 @@ GetRouteRequest JsonRequestPacketDeserializer::deserializeGetRouteRequest(Buffer
     //---------------
 }
 
-GetIpData JsonRequestPacketDeserializer::deserializeIpData(std::string buffer) {
+ipData JsonRequestPacketDeserializer::deserializeIpData(std::string buffer) {
     nlohmann::json jsonObject = nlohmann::json::parse(buffer);
     if(jsonObject["status"] == "fail")
     {
         throw std::runtime_error("api request failed");
     }
-    GetIpData data;
+    ipData data;
     data.ip = jsonObject["query"];
     data.continent = jsonObject["continent"];
     data.country = jsonObject["country"];

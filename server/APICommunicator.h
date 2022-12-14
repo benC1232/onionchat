@@ -14,8 +14,9 @@
 #include <fstream>
 #include <string>
 #include <exception>
+#include "JsonRequestPacketDeserializer.h"
 
-std::string getIpData(std::string ip);
+ipData getIpData(std::string ip);
 std::string getResponseBody(std::string response);
 
 #endif //SERVER_APICOMMUNICATOR_H

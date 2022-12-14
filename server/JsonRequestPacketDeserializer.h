@@ -26,14 +26,14 @@ typedef struct GetRouteRequest{
     std::vector<NodeData> route;
 }GetRouteRequest;
 
-typedef struct GetIpData{
+typedef struct ipData{
     std::string ip;
     std::string continent;
     std::string country;
     std::string regionName;
     std::string city;
     std::string isp;
-}GetIpData;
+}ipData;
 
 
 
@@ -42,7 +42,7 @@ public:
     static LoginRequest deserializeLoginRequest(Buffer buffer);
     static LogoutRequest deserializeLogoutRequest(Buffer buffer);
     static GetRouteRequest deserializeGetRouteRequest(Buffer buffer);
-    static GetIpData deserializeIpData(std::string buffer);
+    static ipData deserializeIpData(std::string buffer);
 
 };
 
