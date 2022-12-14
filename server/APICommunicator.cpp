@@ -2,7 +2,7 @@
 // Created by magshimim on 13-Dec-22.
 //
 #include "APICommunicator.h"
-std::string getIpData(std::string ip) {
+ipData getIpData(std::string ip) {
     int sock = socket(AF_INET, SOCK_STREAM, 0);;
     struct sockaddr_in client;
     int PORT = 80;
@@ -34,7 +34,7 @@ std::string getIpData(std::string ip) {
     raw_site.append(buffer, n);
     close(sock);
 
-    return getResponseBody(raw_site);
+    return JsonRequestPacketDeserializer::deserializeIpData(getResponseBody(raw_site));
 }
 //used this https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
 std::string getResponseBody(std::string response) {
