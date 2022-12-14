@@ -1,7 +1,9 @@
 #include "Server.h"
+#include "SqliteDataBase.h"
+
 Server::Server()
 {
-    this->m_dataBase;
+    this->m_dataBase = new SqliteDataBase();
     this->m_handlerFactory = new RequestHandlerFactory(this->m_dataBase);
     this->m_communicator = new Communicator(*this->m_handlerFactory);
 

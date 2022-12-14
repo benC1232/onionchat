@@ -12,8 +12,8 @@ using Buffer = std::vector<unsigned char>;
 
 typedef struct LoginRequest{
     unsigned int status;
-    std::string s1;
-    std::string s2;
+    std::string IP;
+    int port;
 }LoginRequest;
 
 typedef struct LogoutRequest{
@@ -28,6 +28,7 @@ typedef struct GetRouteRequest{
 
 typedef struct GetIpData{
     std::string ip;
+    int port;
     std::string continent;
     std::string country;
     std::string regionName;

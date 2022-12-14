@@ -6,11 +6,11 @@ LoginManager::LoginManager(IDataBase *dataBase) {
 }
 
 LoginManager::~LoginManager() {
-    delete m_dataBase;
 }
 
-bool LoginManager::login(std::string s1, std::string s2) {
-    return true;
+bool LoginManager::login(std::string IP, int port) {
+
+
 }
 
 bool LoginManager::logout(std::string s1) {
