@@ -28,7 +28,6 @@ typedef struct GetRouteRequest{
 
 typedef struct ipData{
     std::string ip;
-    int port;
     std::string continent;
     std::string country;
     std::string regionName;

@@ -15,9 +15,8 @@ bool LoginManager::login(std::string IP, int port) {
         return false;
     }
     NewNode newNode;
-    newNode.ip = ipDataVar.ip;
     newNode.port = port;
-    newNode.isp = ipDataVar.isp;
+    newNode.ipData = ipDataVar;
 
     newNode.encryptionType = "";
     newNode.publicKey = 0;

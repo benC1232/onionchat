@@ -22,6 +22,12 @@ SqliteDataBase::SqliteDataBase() {
                         "IP TEXT NOT NULL,"
                         "Port int NOT NULL,"
                         "ISP TEXT NOT NULL,"
+                        "COUNTRY TEXT NOT NULL,"
+                        "CONTINENT TEXT NOT NULL"
+                        "RegionName TEXT NOT NULL"
+                        "City TEXT NOT NULL"
+
+
                         ");";
     char* zErrMsg = 0;
     rc = sqlite3_exec(this->db, sql.c_str(), nullptr, 0, &zErrMsg);
@@ -33,14 +39,20 @@ SqliteDataBase::SqliteDataBase() {
     }
 }
 
+/*
+ * std::string continent;
+    std::string country;
+    std::string regionName;
+    std::string city;
+ */
 
 SqliteDataBase::~SqliteDataBase() {
     sqlite3_close(this->db);
 }
 
 bool SqliteDataBase::addNewNode(NewNode newNodeStruct){
-    std::string sql = "INSERT INTO Nodes (EncryptionType, PublicKey, PrivateKey, IP, Port, ISP) "
-                      "VALUES ('" + newNodeStruct.encryptionType + "', " + std::to_string(newNodeStruct.publicKey) + ", " + std::to_string(newNodeStruct.privateKey) + ", '" + newNodeStruct.ip + "', " + std::to_string(newNodeStruct.port) + ", '" + newNodeStruct.isp +");";
+    std::string sql = "INSERT INTO Nodes (EncryptionType, PublicKey, PrivateKey, IP, Port, ISP, COUNTRY, CONTINENT, RegionName, City"
+                      "VALUES ('" + newNodeStruct.encryptionType + "', " + std::to_string(newNodeStruct.publicKey) + ", " + std::to_string(newNodeStruct.privateKey) + ", '" + newNodeStruct.ipData.ip + "', " + std::to_string(newNodeStruct.port) + ", '" + newNodeStruct.ipData.isp+"', '" + newNodeStruct.ipData.country+"', '" + newNodeStruct.ipData.continent+"', '" + newNodeStruct.ipData.regionName+"', '" + newNodeStruct.ipData.city+"');";
     char* zErrMsg = 0;
     int rc = sqlite3_exec(this->db, sql.c_str(), nullptr, 0, &zErrMsg);
     if (rc != SQLITE_OK) {
