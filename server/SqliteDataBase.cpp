@@ -80,3 +80,6 @@ bool SqliteDataBase::deleteNode(std::string IP) {
     }
 }
 
+NodeData* SqliteDataBase::getRoute(){
+    return NodeData{};
+}
