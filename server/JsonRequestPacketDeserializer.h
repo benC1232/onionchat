@@ -18,7 +18,7 @@ typedef struct LoginRequest{
 
 typedef struct LogoutRequest{
     unsigned int status;
-    std::string s1;
+    std::string IP;
 }LogoutRequest;
 
 typedef struct GetRouteRequest{
@@ -36,7 +36,6 @@ typedef struct Blacklist{
 }Blacklist;
 typedef struct ipData{
     std::string ip;
-    int port;
     std::string continent;
     std::string country;
     std::string regionName;

@@ -9,11 +9,10 @@ typedef struct NewNode{
     std::string encryptionType;
     int publicKey;
     int privateKey;
-    std::string ip;
     int port;
-    std::string isp;
-    std::string owner;
-    int bandWidth;
+    IpData ipData;
+
+
 
 } NewNode;
 
