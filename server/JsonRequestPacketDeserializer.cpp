@@ -36,4 +36,16 @@ ipData JsonRequestPacketDeserializer::deserializeIpData(std::string buffer) {
     return data;
 }
 
+Blacklist JsonRequestPacketDeserializer::deserializeBlacklist(Buffer buffer) {
+    std::string jsonString(buffer.begin() ,buffer.end());
+    nlohmann::json jsonObject = nlohmann::json::parse(jsonString);
+    Blacklist data;
+    data.continent = jsonObject["continent"];
+    data.country = jsonObject["country"];
+    data.regionName = jsonObject["regionName"];
+    data.city = jsonObject["city"];
+    data.isp = jsonObject["isp"];
+    return data;
+}
+
 

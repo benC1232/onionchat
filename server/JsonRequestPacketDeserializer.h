@@ -26,6 +26,14 @@ typedef struct GetRouteRequest{
     std::vector<NodeData> route;
 }GetRouteRequest;
 
+typedef struct Blacklist{
+    unsigned int status;
+    std::vector<std::string> continent;
+    std::vector<std::string> country;
+    std::vector<std::string> regionName;
+    std::vector<std::string> city;
+    std::vector<std::string> isp;
+}Blacklist;
 typedef struct ipData{
     std::string ip;
     int port;
@@ -44,6 +52,7 @@ public:
     static LogoutRequest deserializeLogoutRequest(Buffer buffer);
     static GetRouteRequest deserializeGetRouteRequest(Buffer buffer);
     static ipData deserializeIpData(std::string buffer);
+    static Blacklist deserializeBlacklist(Buffer buffer);
 
 };
 
