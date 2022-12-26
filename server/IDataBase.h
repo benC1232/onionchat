@@ -10,7 +10,7 @@ typedef struct NewNode{
     int publicKey;
     int privateKey;
     int port;
-    IpData ipData;
+    ipData ipData;
 
 
 
@@ -22,10 +22,11 @@ public:
     IDataBase() = default;
     virtual ~IDataBase() = default;
 
-    virtual NodeData* getRoute() = 0;
     virtual bool addNewNode(NewNode newNodeStruct) = 0;
     virtual bool deleteNode(std::string IP) = 0;
-};
+    virtual NodeData* getRoute(ipData ipData,Blacklist blackList)  = 0;
+
+    };
 
 
 #endif //SERVER_IDATABASE_H

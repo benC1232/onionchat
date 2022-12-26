@@ -58,7 +58,7 @@ RequestResult RequestHandler::login(RequestInfo requestInfo) {
     LoginRequest loginRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(requestInfo.buffer);
     //missing deserializer content in the current iteration
     if(this->m_requestHandlerFactory->getLoginManager()->login(loginRequest.IP,loginRequest.port)){
-        result.newHandler = this;
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip);
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
         result.bufferSize = result.buffer.size();
 
@@ -104,23 +104,25 @@ RequestResult RequestHandler::getRoute(RequestInfo requestInfo) const {
     RequestResult result;
     GetRouteResponse num;
     num.status = GET_ROUTE_CODE;
-    num.route.push_back({"127.0.0.1", 8686, "None", 0});
-
-    //missing deserializer content in the current iteration
-    //if (this->m_requestHandlerFactory->getLoginManager()->getRoute(nullptr)) {
-        result.newHandler = nullptr;
+    GetRouteRequest getRouteRequest = JsonRequestPacketDeserializer::deserializeGetRouteRequest(requestInfo.buffer);
+    auto [found, route] = this->m_requestHandlerFactory->getLoginManager()->getRoute(getRouteRequest.destination, getRouteRequest.blacklist);
+    if(found){
+        num.route = route;
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip);
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
         result.bufferSize = result.buffer.size();
-    //}
-    /*else {
-        result.newHandler = this->m_requestHandlerFactory->createRequestHandler();
+    }
+    else
+    {
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip);
         num.status = ERROR_CODE;
         ErrorResponse err;
         err.message = "Get route failed";
         result.buffer = JsonResponsePacketSerializer::serializeResponse(err);
         result.bufferSize = result.buffer.size();
-    }*/
+    }
     return result;
+
 }
 
 

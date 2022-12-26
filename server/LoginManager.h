@@ -11,7 +11,10 @@ public:
     ~LoginManager();
     bool login(std::string IP, int port);
     bool logout(std::string IP);
-    bool getRoute(std::vector<NodeData> destination);
+
+
+
+    std::tuple<bool, std::vector<NodeData>> getRoute(ipData ipData, Blacklist blacklist);
 };
 
 

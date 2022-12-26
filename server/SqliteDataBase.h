@@ -10,11 +10,12 @@ class SqliteDataBase: public IDataBase {
 public:
     SqliteDataBase();
     virtual ~SqliteDataBase() override;
-    virtual NodeData* getRoute() override;
     virtual bool addNewNode(NewNode newNodeStruct) override;
     virtual bool deleteNode(std::string IP) override;
+    virtual NodeData* getRoute(ipData ipData,Blacklist blacklist) override;
 
-private:
+
+        private:
     sqlite3* db;
 
 

@@ -21,19 +21,16 @@ typedef struct LogoutRequest{
     std::string IP;
 }LogoutRequest;
 
-typedef struct GetRouteRequest{
-    unsigned int status;
-    std::vector<NodeData> route;
-}GetRouteRequest;
+
 
 typedef struct Blacklist{
-    unsigned int status;
     std::vector<std::string> continent;
     std::vector<std::string> country;
     std::vector<std::string> regionName;
     std::vector<std::string> city;
     std::vector<std::string> isp;
 }Blacklist;
+
 typedef struct ipData{
     std::string ip;
     std::string continent;
@@ -42,6 +39,12 @@ typedef struct ipData{
     std::string city;
     std::string isp;
 }ipData;
+
+typedef struct GetRouteRequest{
+    int status;
+    iPData destination;
+    Blacklist blacklist;
+}GetRouteRequest;
 
 
 
