@@ -42,7 +42,7 @@ typedef struct ipData{
 
 typedef struct GetRouteRequest{
     int status;
-    iPData destination;
+    ipData destination;
     Blacklist blacklist;
 }GetRouteRequest;
 

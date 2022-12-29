@@ -4,32 +4,32 @@
 
 #include <random>
 #include "SqliteDataBase.h"
+#include "sqlite3.h"
 
 SqliteDataBase::SqliteDataBase() {
     this->db = nullptr;
-    int rc = sqlite3_open("database.db", &this->db);
+    int rc = sqlite3_open("database.sqlite", &this->db);
     if (rc) {
         std::cerr << "Can't open database: " << sqlite3_errmsg(this->db) << std::endl;
         exit(0);
-    } else {
+    }
+    else {
         std::cout << "Opened database successfully" << std::endl;
     }
 
-
     std::string sql = "CREATE TABLE IF NOT EXISTS Nodes ("
+                      "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                       "EncryptionType TEXT NOT NULL,"
-                      "PublicKey int NOT NULL,"
-                      "PrivateKey int NOT NULL,"
-                        "IP TEXT NOT NULL,"
-                        "Port int NOT NULL,"
-                        "ISP TEXT NOT NULL,"
-                        "COUNTRY TEXT NOT NULL,"
-                        "CONTINENT TEXT NOT NULL"
-                        "RegionName TEXT NOT NULL"
-                        "City TEXT NOT NULL"
-
-
-                        ");";
+                      "PublicKey TEXT NOT NULL,"
+                      "PrivateKey TEXT NOT NULL,"
+                      "IP TEXT NOT NULL,"
+                      "Port INTEGER NOT NULL,"
+                      "ISP TEXT NOT NULL,"
+                      "COUNTRY TEXT NOT NULL,"
+                      "CONTINENT TEXT NOT NULL,"
+                      "RegionName TEXT NOT NULL,"
+                      "City TEXT NOT NULL"
+                      ");";
     char* zErrMsg = 0;
     rc = sqlite3_exec(this->db, sql.c_str(), nullptr, 0, &zErrMsg);
     if (rc != SQLITE_OK) {
@@ -53,7 +53,7 @@ SqliteDataBase::~SqliteDataBase() {
 
 bool SqliteDataBase::addNewNode(NewNode newNodeStruct){
     std::string sql = "INSERT INTO Nodes (EncryptionType, PublicKey, PrivateKey, IP, Port, ISP, COUNTRY, CONTINENT, RegionName, City"
-                      "VALUES ('" + newNodeStruct.encryptionType + "', " + std::to_string(newNodeStruct.publicKey) + ", " + std::to_string(newNodeStruct.privateKey) + ", '" + newNodeStruct.ipData.ip + "', " + std::to_string(newNodeStruct.port) + ", '" + newNodeStruct.ipData.isp+"', '" + newNodeStruct.ipData.country+"', '" + newNodeStruct.ipData.continent+"', '" + newNodeStruct.ipData.regionName+"', '" + newNodeStruct.ipData.city+"');";
+                      "VALUES ('" + newNodeStruct.encryptionType + "', " + std::to_string(newNodeStruct.publicKey) + ", " + std::to_string(newNodeStruct.privateKey) + ", '" + newNodeStruct.ipdata.ip + "', " + std::to_string(newNodeStruct.port) + ", '" + newNodeStruct.ipdata.isp+"', '" + newNodeStruct.ipdata.country+"', '" + newNodeStruct.ipdata.continent+"', '" + newNodeStruct.ipdata.regionName+"', '" + newNodeStruct.ipdata.city+"');";
     char* zErrMsg = 0;
     int rc = sqlite3_exec(this->db, sql.c_str(), nullptr, 0, &zErrMsg);
     if (rc != SQLITE_OK) {
@@ -87,13 +87,13 @@ int callback(void* nodes, int argc, char** argv, char** azColName) {
         newNode.encryptionType = argv[0];
         newNode.publicKey = std::stoi(argv[1]);
         newNode.privateKey = std::stoi(argv[2]);
-        newNode.ipData.ip = argv[3];
+        newNode.ipdata.ip = argv[3];
         newNode.port = std::stoi(argv[4]);
-        newNode.ipData.isp = argv[5];
-        newNode.ipData.country = argv[6];
-        newNode.ipData.continent = argv[7];
-        newNode.ipData.regionName = argv[8];
-        newNode.ipData.city = argv[9];
+        newNode.ipdata.isp = argv[5];
+        newNode.ipdata.country = argv[6];
+        newNode.ipdata.continent = argv[7];
+        newNode.ipdata.regionName = argv[8];
+        newNode.ipdata.city = argv[9];
         nodesVector->push_back(newNode);
 
     }
@@ -123,13 +123,13 @@ NodeData* SqliteDataBase::getRoute(ipData ipData,Blacklist blackList) {
 
 
     for (auto node : *nodeStructs) {
-        if (std::find(blackList.continent.begin(), blackList.continent.end(), node.ipData.continent) == blackList.continent.end() &&
-            std::find(blackList.country.begin(), blackList.country.end(), node.ipData.country) == blackList.country.end() &&
-            std::find(blackList.regionName.begin(), blackList.regionName.end(), node.ipData.regionName) == blackList.regionName.end() &&
-            std::find(blackList.city.begin(), blackList.city.end(), node.ipData.city) == blackList.city.end()) {
+        if (std::find(blackList.continent.begin(), blackList.continent.end(), node.ipdata.continent) == blackList.continent.end() &&
+            std::find(blackList.country.begin(), blackList.country.end(), node.ipdata.country) == blackList.country.end() &&
+            std::find(blackList.regionName.begin(), blackList.regionName.end(), node.ipdata.regionName) == blackList.regionName.end() &&
+            std::find(blackList.city.begin(), blackList.city.end(), node.ipdata.city) == blackList.city.end()) {
             route[i].encryption = node.encryptionType;
             route[i].key = node.publicKey;
-            route[i].ip = node.ipData.ip;
+            route[i].ip = node.ipdata.ip;
             route[i].port = node.port;
             i++;
 
