@@ -6,5 +6,11 @@
   "dest_settings": {
     "dest_ip": "127.0.0.1",
     "dest_port": 34435
+  },
+  "path_settings": {
+    "continent": ["Antarctica", "Africa"],
+    "country": ["Montenegro", "Antigua and Barbuda"],
+    "regionName": ["Quebec", "Queensland"],
+    "city": ["Ouagadougou", "Hell"]
   }
 }

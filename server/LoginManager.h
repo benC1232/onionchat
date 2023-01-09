@@ -9,9 +9,12 @@ private:
 public:
     LoginManager(IDataBase* dataBase);
     ~LoginManager();
-    bool login(std::string s1, std::string s2);
-    bool logout(std::string s1);
-    bool getRoute(std::vector<NodeData> destination);
+    bool login(std::string IP, int port);
+    bool logout(std::string IP);
+
+
+
+    std::tuple<bool, std::vector<NodeData>> getRoute(ipData ipData, Blacklist blacklist);
 };
 
 

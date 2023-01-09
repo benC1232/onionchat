@@ -15,12 +15,13 @@ def get_path():
     # this line makes the scope not mess up the dict, do not change
     server_settings = {}
     with open("settings.json", "r") as json_file:
-        server_settings = json.load(json_file)['server_settings']
-    HOST = server_settings['server_ip']
-    PORT = server_settings['server_port']
+        settings = json.load(json_file)
+
+    HOST = settings['server_settings']['server_ip']
+    PORT = settings['server_settings']['server_port']
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
-        s.sendall(parse_request(150, ""))
+        s.sendall(parse_request(150, json.dumps(settings['path_settings'])))
         data = s.recv(1024)
         print(data)
         response = data[5:get_len(data)+5]

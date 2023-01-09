@@ -20,4 +20,6 @@ struct RequestInfo
     std::vector<unsigned char> buffer;
 };
 
+
+
 #endif //SERVER_HANDLERSTRUCTS_H
