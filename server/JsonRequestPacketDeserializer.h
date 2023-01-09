@@ -12,28 +12,39 @@ using Buffer = std::vector<unsigned char>;
 
 typedef struct LoginRequest{
     unsigned int status;
-    std::string s1;
-    std::string s2;
+    std::string IP;
+    int port;
 }LoginRequest;
 
 typedef struct LogoutRequest{
     unsigned int status;
-    std::string s1;
+    std::string IP;
 }LogoutRequest;
 
-typedef struct GetRouteRequest{
-    unsigned int status;
-    std::vector<NodeData> route;
-}GetRouteRequest;
 
-typedef struct GetIpData{
+
+typedef struct Blacklist{
+    std::vector<std::string> continent;
+    std::vector<std::string> country;
+    std::vector<std::string> regionName;
+    std::vector<std::string> city;
+    std::vector<std::string> isp;
+}Blacklist;
+
+typedef struct ipData{
     std::string ip;
     std::string continent;
     std::string country;
     std::string regionName;
     std::string city;
     std::string isp;
-}GetIpData;
+}ipData;
+
+typedef struct GetRouteRequest{
+    int status;
+    ipData destination;
+    Blacklist blacklist;
+}GetRouteRequest;
 
 
 
@@ -42,7 +53,8 @@ public:
     static LoginRequest deserializeLoginRequest(Buffer buffer);
     static LogoutRequest deserializeLogoutRequest(Buffer buffer);
     static GetRouteRequest deserializeGetRouteRequest(Buffer buffer);
-    static GetIpData deserializeIpData(std::string buffer);
+    static ipData deserializeIpData(std::string buffer);
+    static Blacklist deserializeBlacklist(Buffer buffer);
 
 };
 

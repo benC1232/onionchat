@@ -19,13 +19,13 @@ GetRouteRequest JsonRequestPacketDeserializer::deserializeGetRouteRequest(Buffer
     //---------------
 }
 
-GetIpData JsonRequestPacketDeserializer::deserializeIpData(std::string buffer) {
+ipData JsonRequestPacketDeserializer::deserializeIpData(std::string buffer) {
     nlohmann::json jsonObject = nlohmann::json::parse(buffer);
     if(jsonObject["status"] == "fail")
     {
         throw std::runtime_error("api request failed");
     }
-    GetIpData data;
+    ipData data;
     data.ip = jsonObject["query"];
     data.continent = jsonObject["continent"];
     data.country = jsonObject["country"];
@@ -33,6 +33,18 @@ GetIpData JsonRequestPacketDeserializer::deserializeIpData(std::string buffer) {
     data.city = jsonObject["city"];
     data.isp = jsonObject["isp"];
 
+    return data;
+}
+
+Blacklist JsonRequestPacketDeserializer::deserializeBlacklist(Buffer buffer) {
+    std::string jsonString(buffer.begin() ,buffer.end());
+    nlohmann::json jsonObject = nlohmann::json::parse(jsonString);
+    Blacklist data;
+    data.continent = jsonObject["continent"];
+    data.country = jsonObject["country"];
+    data.regionName = jsonObject["regionName"];
+    data.city = jsonObject["city"];
+    data.isp = jsonObject["isp"];
     return data;
 }
 
