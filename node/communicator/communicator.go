@@ -1,13 +1,12 @@
 package communicator
 
 import (
-	"fmt"
+	"io/ioutil"
+	"log"
+	"net"
 	"node/deserializer"
 	"node/serializer"
 	"strconv"
-	"time"
-
-	"net"
 )
 
 const SERVER string = "127.0.0.1:60005"
@@ -51,8 +50,9 @@ func (communicator *Communicator) initServerConnection() bool {
 
 func (communicator *Communicator) keepAlive() {
 	for {
-		time.Sleep(3 * time.Second)
-		fmt.Println("keep alive")
+		res, err := ioutil.ReadAll(communicator.serSock)
+		checkError(err)
+
 	}
 }
 
@@ -165,4 +165,11 @@ func (communicator *Communicator) handleNewConnection(socket net.Conn) {
 
 	go communicator.handleCommunication(pair)
 
+}
+
+func checkError(err error) {
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
