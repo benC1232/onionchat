@@ -11,9 +11,10 @@
 #define GET_ROUTE_CODE 150
 
 
-RequestHandler::RequestHandler(RequestHandlerFactory *requestHandler, std::string ip) {
+RequestHandler::RequestHandler(RequestHandlerFactory *requestHandler, std::string ip, int socket) {
     this->m_requestHandlerFactory = requestHandler;
     this->ip = ip;
+    this->socket = socket;
 }
 
 
@@ -58,14 +59,14 @@ RequestResult RequestHandler::login(RequestInfo requestInfo) {
     LoginRequest loginRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(requestInfo.buffer);
     //missing deserializer content in the current iteration
     if(this->m_requestHandlerFactory->getLoginManager()->login(loginRequest.IP,loginRequest.port)){
-        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip);
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip, 0);
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
         result.bufferSize = result.buffer.size();
 
     }
     else
     {
-        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip);
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip, 0);
         num.status = ERROR_CODE;
         ErrorResponse err;
         err.message = "Login failed";
@@ -88,7 +89,7 @@ RequestResult RequestHandler::logout(RequestInfo requestInfo) const{
     }
     else
     {
-        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip);
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip, 0);
         num.status = ERROR_CODE;
         ErrorResponse err;
         err.message = "Logout failed";
@@ -108,13 +109,13 @@ RequestResult RequestHandler::getRoute(RequestInfo requestInfo) const {
     auto [found, route] = this->m_requestHandlerFactory->getLoginManager()->getRoute(getRouteRequest.destination, getRouteRequest.blacklist);
     if(found){
         num.route = route;
-        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip);
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip, 0);
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
         result.bufferSize = result.buffer.size();
     }
     else
     {
-        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip);
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip, 0);
         num.status = ERROR_CODE;
         ErrorResponse err;
         err.message = "Get route failed";

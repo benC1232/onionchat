@@ -14,7 +14,8 @@ private:
 public:
     RequestHandlerFactory(IDataBase* dataBase);
     ~RequestHandlerFactory();
-    RequestHandler* createRequestHandler(std::string ip);
+    RequestHandler *createRequestHandler(std::string ip, int socket);
+    RequestHandler *createNodeRequestHandler(int socket);
     LoginManager* getLoginManager();
 };
 
