@@ -1,12 +1,15 @@
 package communicator
 
 import (
-	"io/ioutil"
+	"bytes"
+	"encoding/binary"
+	"fmt"
 	"log"
 	"net"
 	"node/deserializer"
 	"node/serializer"
 	"strconv"
+	"time"
 )
 
 const SERVER string = "127.0.0.1:60005"
@@ -50,9 +53,17 @@ func (communicator *Communicator) initServerConnection() bool {
 
 func (communicator *Communicator) keepAlive() {
 	for {
-		res, err := ioutil.ReadAll(communicator.serSock)
+		msg := 220
+		buff := new(bytes.Buffer)
+		err := binary.Write(buff, binary.LittleEndian, uint16(msg))
 		checkError(err)
-
+		_, err = communicator.serSock.Write(buff.Bytes())
+		checkError(err)
+		reply := make([]byte, 1024)
+		_, err = communicator.serSock.Read(reply)
+		checkError(err)
+		fmt.Println("kepalive succesful")
+		time.Sleep(120 * time.Second)
 	}
 }
 
