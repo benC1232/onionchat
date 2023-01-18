@@ -19,6 +19,9 @@ typedef struct GetRouteResponse{
     std::vector<NodeData> route;
 }GetRouteResponse;
 
+typedef struct KeepAliveResponse{
+    unsigned int status;
+}KeepAliveResponse;
 typedef struct ErrorResponse{
     std::string message;
 }ErrorResponse;
@@ -29,4 +32,5 @@ public:
     static Buffer serializeResponse(LoginResponse loginResponse);
     static Buffer serializeResponse(LogoutResponse logoutResponse);
     static Buffer serializeResponse(GetRouteResponse getRouteResponse);
+    static Buffer serializeResponse(KeepAliveResponse keepAliveResponse);
 };

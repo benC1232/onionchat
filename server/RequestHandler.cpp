@@ -31,10 +31,6 @@ RequestResult RequestHandler::handleRequest(RequestInfo request) {
     if(request.id == LOGIN_CODE){
         result = login(request);
     }
-    //log out
-    else if(request.id == LOG_OUT_CODE){
-        result = logout(request);
-    }
     //get route
     else if(request.id == GET_ROUTE_CODE){
         result = getRoute(request);
@@ -66,33 +62,10 @@ RequestResult RequestHandler::login(RequestInfo requestInfo) {
     }
     else
     {
-        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip, 0);
+        result.newHandler = this->m_requestHandlerFactory->createNodeRequestHandler(this->ip, 0);
         num.status = ERROR_CODE;
         ErrorResponse err;
         err.message = "Login failed";
-        result.buffer = JsonResponsePacketSerializer::serializeResponse(err);
-        result.bufferSize = result.buffer.size();
-    }
-    return result;
-
-}
-
-RequestResult RequestHandler::logout(RequestInfo requestInfo) const{
-    RequestResult result;
-    LogoutResponse num;
-    num.status = LOG_OUT_CODE;
-    LogoutRequest logoutRequest = JsonRequestPacketDeserializer::deserializeLogoutRequest(requestInfo.buffer);
-    if(this->m_requestHandlerFactory->getLoginManager()->logout(logoutRequest.IP)){
-        result.newHandler = nullptr;
-        result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
-        result.bufferSize = result.buffer.size();
-    }
-    else
-    {
-        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip, 0);
-        num.status = ERROR_CODE;
-        ErrorResponse err;
-        err.message = "Logout failed";
         result.buffer = JsonResponsePacketSerializer::serializeResponse(err);
         result.bufferSize = result.buffer.size();
     }

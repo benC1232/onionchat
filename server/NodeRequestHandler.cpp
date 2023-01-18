@@ -4,13 +4,57 @@
 
 #include "NodeRequestHandler.h"
 
-NodeRequestHandler::NodeRequestHandler(RequestHandlerFactory *requestHandler, int socket) {
-    this->socket = socket;
-    this->m_requestHandlerFactory = requestHandler;
-    // sending the first keepalive message
-    char msg[1] = {char(150)};
-    ssize_t sent_bytes = send(socket, msg, 1, 0);
-    if (sent_bytes < 0) {
-        throw std::runtime_error("message not sent successfully");
+
+
+RequestResult NodeRequestHandler::handleRequest(RequestInfo request) {
+    RequestResult result;
+
+    if(request.id == LOG_OUT_CODE){
+        result = logout(request);
     }
+    else if(request.id == KEEPALIVE_CODE)
+    {
+        result = keepalive(request);
+    }
+    return result;
+}
+
+RequestResult NodeRequestHandler::logout(RequestInfo requestInfo){
+    RequestResult result;
+    LogoutResponse num;
+    num.status = LOG_OUT_CODE;
+    LogoutRequest logoutRequest = JsonRequestPacketDeserializer::deserializeLogoutRequest(requestInfo.buffer);
+    if(this->m_requestHandlerFactory->getLoginManager()->logout(this->ip)){
+        result.newHandler = nullptr;
+        result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
+        result.bufferSize = result.buffer.size();
+    }
+    else
+    {
+        result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip, 0);
+        num.status = ERROR_CODE;
+        ErrorResponse err;
+        err.message = "Logout failed";
+        result.buffer = JsonResponsePacketSerializer::serializeResponse(err);
+        result.bufferSize = result.buffer.size();
+    }
+    return result;
+
+}
+
+RequestResult NodeRequestHandler::keepalive(RequestInfo requestInfo){
+    RequestResult result;
+    LogoutResponse num;
+    num.status = LOG_OUT_CODE;
+    result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
+    result.bufferSize = result.buffer.size();
+    result.newHandler = this;
+    return result;
+}
+
+NodeRequestHandler::NodeRequestHandler(RequestHandlerFactory *requestHandler, std::string ip, int socket) {
+    this->m_requestHandlerFactory = requestHandler;
+    this->ip = ip;
+    this->socket = socket;
+
 }

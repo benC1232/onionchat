@@ -5,7 +5,8 @@
  * input: none
  * output: none
  */
-Communicator::Communicator(RequestHandlerFactory &mHandlerFactory) : m_handlerFactory(mHandlerFactory) {
+Communicator::Communicator(RequestHandlerFactory &mHandlerFactory)
+        : m_handlerFactory(mHandlerFactory) {
     this->m_serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (this->m_serverSocket < 0) {
         throw std::runtime_error("socket wasn't created successfully");

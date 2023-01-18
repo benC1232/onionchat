@@ -4,9 +4,9 @@
 #include "IDataBase.h"
 #include "IRequestHandler.h"
 #include "RequestHandler.h"
-
+#include "NodeRequestHandler.h"
 class RequestHandler;
-
+class NodeRequestHandler;
 class RequestHandlerFactory {
 private:
     LoginManager* m_loginManager;
@@ -15,7 +15,7 @@ public:
     RequestHandlerFactory(IDataBase* dataBase);
     ~RequestHandlerFactory();
     RequestHandler *createRequestHandler(std::string ip, int socket);
-    RequestHandler *createNodeRequestHandler(int socket);
+    NodeRequestHandler *createNodeRequestHandler(std::string ip, int socket);
     LoginManager* getLoginManager();
 };
 
