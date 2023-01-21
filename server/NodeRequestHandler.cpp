@@ -58,3 +58,7 @@ NodeRequestHandler::NodeRequestHandler(RequestHandlerFactory *requestHandler, st
     this->socket = socket;
 
 }
+
+bool NodeRequestHandler::isRequestRelevant(RequestInfo request) {
+    return false;
+}
