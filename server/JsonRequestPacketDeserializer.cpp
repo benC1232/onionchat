@@ -7,16 +7,16 @@ LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(Buffer buffe
     //---------------
 }
 
- LogoutRequest JsonRequestPacketDeserializer::deserializeLogoutRequest(Buffer buffer){
-    std::string jsonString(buffer.begin()+JSON_OFFSET,buffer.end());
-    nlohmann::json jsonObject = nlohmann::json::parse(jsonString);
-    //---------------
-}
-
-GetRouteRequest JsonRequestPacketDeserializer::deserializeGetRouteRequest(Buffer buffer){
-    std::string jsonString(buffer.begin()+JSON_OFFSET,buffer.end());
-    nlohmann::json jsonObject = nlohmann::json::parse(jsonString);
-    //---------------
+Blacklist JsonRequestPacketDeserializer::deserializeGetRouteRequest(Buffer buffer){
+    std::string jsonString(buffer.begin() ,buffer.end());
+    nlohmann::json j = nlohmann::json::parse(jsonString);
+    Blacklist location;
+    location.continent = j.value("continent", std::vector<std::string>{});
+    location.country = j.value("country", std::vector<std::string>{});
+    location.regionName = j.value("regionName", std::vector<std::string>{});
+    location.city = j.value("city", std::vector<std::string>{});
+    location.isp = j.value("isp", std::vector<std::string>{});
+    return location;
 }
 
 ipData JsonRequestPacketDeserializer::deserializeIpData(std::string buffer) {
@@ -35,17 +35,4 @@ ipData JsonRequestPacketDeserializer::deserializeIpData(std::string buffer) {
 
     return data;
 }
-
-Blacklist JsonRequestPacketDeserializer::deserializeBlacklist(Buffer buffer) {
-    std::string jsonString(buffer.begin() ,buffer.end());
-    nlohmann::json jsonObject = nlohmann::json::parse(jsonString);
-    Blacklist data;
-    data.continent = jsonObject["continent"];
-    data.country = jsonObject["country"];
-    data.regionName = jsonObject["regionName"];
-    data.city = jsonObject["city"];
-    data.isp = jsonObject["isp"];
-    return data;
-}
-
 

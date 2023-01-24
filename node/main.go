@@ -6,5 +6,4 @@ func main() {
 	comm := communicator.NewCommunicator(1)
 	comm.Listen()
 	defer comm.Delete()
-
 }

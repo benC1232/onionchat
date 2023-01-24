@@ -35,7 +35,6 @@ def parse_request(code, json):
     return data
 def parse_response(msg):
     loaded_msg = json.loads(msg.decode())['route']['node1']
-    #TODO: parse 3 nodes and not 1
     node_list = []
     node_list.append(Node(loaded_msg['ip'],loaded_msg['port'],loaded_msg['encryption'],0))
     return node_list
