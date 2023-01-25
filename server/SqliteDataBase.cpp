@@ -52,7 +52,7 @@ SqliteDataBase::~SqliteDataBase() {
 }
 
 bool SqliteDataBase::addNewNode(NewNode newNodeStruct){
-    std::string sql = "INSERT INTO Nodes (EncryptionType, PublicKey, PrivateKey, IP, Port, ISP, COUNTRY, CONTINENT, RegionName, City"
+    std::string sql = "INSERT INTO Nodes (EncryptionType, PublicKey, PrivateKey, IP, Port, ISP, COUNTRY, CONTINENT, RegionName, City) "
                       "VALUES ('" + newNodeStruct.encryptionType + "', " + std::to_string(newNodeStruct.publicKey) + ", " + std::to_string(newNodeStruct.privateKey) + ", '" + newNodeStruct.ipdata.ip + "', " + std::to_string(newNodeStruct.port) + ", '" + newNodeStruct.ipdata.isp+"', '" + newNodeStruct.ipdata.country+"', '" + newNodeStruct.ipdata.continent+"', '" + newNodeStruct.ipdata.regionName+"', '" + newNodeStruct.ipdata.city+"');";
     char* zErrMsg = 0;
     int rc = sqlite3_exec(this->db, sql.c_str(), nullptr, 0, &zErrMsg);

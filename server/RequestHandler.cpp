@@ -54,7 +54,7 @@ RequestResult RequestHandler::login(RequestInfo requestInfo) {
     num.status = LOGIN_CODE;
     LoginRequest loginRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(requestInfo.buffer);
     //missing deserializer content in the current iteration
-    if(this->m_requestHandlerFactory->getLoginManager()->login(loginRequest.IP,loginRequest.port)){
+    if(this->m_requestHandlerFactory->getLoginManager()->login(this->ip,loginRequest.port)){
         result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip, 0);
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
         result.bufferSize = result.buffer.size();
