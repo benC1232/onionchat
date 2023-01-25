@@ -12,7 +12,7 @@ public:
     virtual ~SqliteDataBase() override;
     virtual bool addNewNode(NewNode newNodeStruct) override;
     virtual bool deleteNode(std::string IP) override;
-    virtual NodeData* getRoute(ipData ipData,Blacklist blacklist) override;
+    virtual NodeData* getRoute(Blacklist blacklist) override;
 
 
         private:

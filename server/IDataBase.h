@@ -23,7 +23,7 @@ public:
 
     virtual bool addNewNode(NewNode newNodeStruct) = 0;
     virtual bool deleteNode(std::string IP) = 0;
-    virtual NodeData* getRoute(ipData ipData,Blacklist blackList)  = 0;
+    virtual NodeData* getRoute(Blacklist blackList)  = 0;
 
     };
 

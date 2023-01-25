@@ -78,8 +78,8 @@ RequestResult RequestHandler::getRoute(RequestInfo requestInfo) const {
     RequestResult result;
     GetRouteResponse num;
     num.status = GET_ROUTE_CODE;
-    GetRouteRequest getRouteRequest = JsonRequestPacketDeserializer::deserializeGetRouteRequest(requestInfo.buffer);
-    auto [found, route] = this->m_requestHandlerFactory->getLoginManager()->getRoute(getRouteRequest.destination, getRouteRequest.blacklist);
+    Blacklist blacklist = JsonRequestPacketDeserializer::deserializeGetRouteRequest(requestInfo.buffer);
+    auto [found, route] = this->m_requestHandlerFactory->getLoginManager()->getRoute(blacklist);
     if(found){
         num.route = route;
         result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip, 0);

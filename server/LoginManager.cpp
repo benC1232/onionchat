@@ -42,9 +42,9 @@ std::vector<NodeData> nodeDataArrayToVector(NodeData* nodeDataArray) {
     return nodeDataVector;
 }
 
-std::tuple<bool,std::vector<NodeData>>  LoginManager::getRoute(ipData ipData,Blacklist blacklist) {
+std::tuple<bool,std::vector<NodeData>>  LoginManager::getRoute(Blacklist blacklist) {
     bool found = false;
-    NodeData* nodeData = m_dataBase->getRoute(ipData,blacklist);
+    NodeData* nodeData = m_dataBase->getRoute(blacklist);
     found = nodeData!= nullptr;
     return std::make_tuple(found,nodeDataArrayToVector(nodeData));
 

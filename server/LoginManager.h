@@ -14,7 +14,7 @@ public:
 
 
 
-    std::tuple<bool, std::vector<NodeData>> getRoute(ipData ipData, Blacklist blacklist);
+    std::tuple<bool, std::vector<NodeData>> getRoute(Blacklist blacklist);
 };
 
 

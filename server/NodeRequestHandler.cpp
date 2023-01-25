@@ -23,7 +23,6 @@ RequestResult NodeRequestHandler::logout(RequestInfo requestInfo){
     RequestResult result;
     LogoutResponse num;
     num.status = LOG_OUT_CODE;
-    LogoutRequest logoutRequest = JsonRequestPacketDeserializer::deserializeLogoutRequest(requestInfo.buffer);
     if(this->m_requestHandlerFactory->getLoginManager()->logout(this->ip)){
         result.newHandler = nullptr;
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);

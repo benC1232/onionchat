@@ -105,7 +105,7 @@ int callback(void* nodes, int argc, char** argv, char** azColName) {
 /*
  * the function gets a ipData struct and a blacklist struct and returns a NodeData array with the route, every node in the route is a NodeData struct that all of the parameters in the struct are not in one of the vectors in the blacklist struct
  */
-NodeData* SqliteDataBase::getRoute(ipData ipData,Blacklist blackList) {
+NodeData* SqliteDataBase::getRoute(Blacklist blackList) {
     NodeData* route = new NodeData[3];
     int i = 0;
     //for evey node in the database check if the node is in the blacklist if it is not add it to the route
