@@ -19,7 +19,7 @@ ipData getIpData(std::string ip) {
         throw std::runtime_error("could not connect");
     }
     std::stringstream ss;
-    ss << "GET /json/" << ip << "?fields=1098265 HTTP/1.1\r\n"
+    ss << "GET /json/" << ip << "?fields=1073689 HTTP/1.1\r\n"
     << "Host: ip-api.com\r\n"
     << "Accept: application/json\r\n"
     << "\r\n\r\n";
