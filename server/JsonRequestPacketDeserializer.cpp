@@ -2,10 +2,10 @@
 
 
 LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(Buffer buffer) {
-    std::string jsonString(buffer.begin()+JSON_OFFSET,buffer.end());
+    std::string jsonString(buffer.begin(),buffer.end());
     nlohmann::json jsonObject = nlohmann::json::parse(jsonString);
     LoginRequest ret;
-    ret.port = jsonObject["port"];
+    ret.port = jsonObject["Port"];
     return ret;
 }
 
