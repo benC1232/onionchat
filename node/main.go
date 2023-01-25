@@ -3,7 +3,7 @@ package main
 import "node/communicator"
 
 func main() {
-	comm := communicator.NewCommunicator(1)
+	comm := communicator.NewCommunicator()
 	comm.Listen()
 	defer comm.Delete()
 }
