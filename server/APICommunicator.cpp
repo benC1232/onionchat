@@ -6,7 +6,6 @@ ipData getIpData(std::string ip) {
     int sock = socket(AF_INET, SOCK_STREAM, 0);;
     struct sockaddr_in client;
     int PORT = 80;
-    ip = "1.1.1.1";
     bzero(&client, sizeof(client));
     client.sin_family = AF_INET;
     client.sin_port = htons( PORT );
