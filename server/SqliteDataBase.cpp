@@ -84,16 +84,16 @@ int callback(void* nodes, int argc, char** argv, char** azColName) {
     std::vector<NewNode>* nodesVector = (std::vector<NewNode>*)nodes;
     for (int i = 0; i < argc; i++) {
         NewNode newNode;
-        newNode.encryptionType = argv[0];
+        newNode.encryptionType = std::string(argv[0]);
         newNode.publicKey = std::stoi(argv[1]);
         newNode.privateKey = std::stoi(argv[2]);
-        newNode.ipdata.ip = argv[3];
+        newNode.ipdata.ip = std::string(argv[3]);
         newNode.port = std::stoi(argv[4]);
-        newNode.ipdata.isp = argv[5];
-        newNode.ipdata.country = argv[6];
-        newNode.ipdata.continent = argv[7];
-        newNode.ipdata.regionName = argv[8];
-        newNode.ipdata.city = argv[9];
+        newNode.ipdata.isp = std::string(argv[5]);
+        newNode.ipdata.country = std::string(argv[6]);
+        newNode.ipdata.continent = std::string(argv[7]);
+        newNode.ipdata.regionName = std::string(argv[8]);
+        newNode.ipdata.city = std::string(argv[9]);
         nodesVector->push_back(newNode);
 
     }
