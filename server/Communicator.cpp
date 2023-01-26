@@ -99,7 +99,7 @@ void Communicator::write(RequestResult message, int clientSock) {
  * output: message that was sent to server
  */
 RequestInfo Communicator::read(int clientSock) {
-    char buffer[MESSAGE_SIZE];
+    unsigned char buffer[MESSAGE_SIZE];
     int expected_data_len = sizeof(buffer);
     ssize_t read_bytes = recv(clientSock, buffer, expected_data_len, 0);
     RequestInfo request;
@@ -114,7 +114,7 @@ RequestInfo Communicator::read(int clientSock) {
 /*
  * extracts the length field from the packet
  */
-int Communicator::getJsonSize(const char *buffer) {
+int Communicator::getJsonSize(const unsigned char *buffer) {
     //don't change!!!!!!!! it works!!!!!!!!
     const int size = buffer[1] << 24 | buffer[2] << 16 | buffer[3] << 8 | buffer[4];
     return size;

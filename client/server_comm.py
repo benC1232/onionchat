@@ -31,7 +31,7 @@ def get_path():
 def get_len(msg):
     return int.from_bytes(msg[1:5], byteorder="big")
 def parse_request(code, json):
-    data = int(code).to_bytes(1, byteorder="big") + int(len(json)).to_bytes(4, byteorder="big") + json.encode()
+    data = int(code).to_bytes(1, byteorder="big", signed = False) + len(json).to_bytes(4, byteorder="big", signed=False) + json.encode()
     return data
 def parse_response(msg):
     loaded_msg = json.loads(msg.decode())['route']['node1']
