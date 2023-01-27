@@ -1,72 +1,45 @@
-from Crypto import Random
-from Crypto.Cipher import AES
-
-from EncryptionManager import EncryptionManager
-from AESManager import AESManager
+import math
+import random
 
 
-from tinyec import registry
-from Crypto.Cipher import AES
-import hashlib, secrets, binascii
+class ECCrypto:
+    def __init__(self, public_key, private_key):
+        self.public_key = public_key
+        self.private_key = private_key
+        self.curve = self.public_key['curve']
+        self.generator = self.public_key['generator']
+        self.prime = self.curve['prime']
 
+    def encrypt(self, message):
+        k = random.randrange(1, self.prime)
+        k_inv = self._modinv(k, self.prime)
+        x, y = self.generator
+        x1, y1 = (x * k) % self.prime, (y * k) % self.prime
+        x2, y2 = self.public_key['point']
+        x3, y3 = (x1 + x2) % self.prime, (y1 + y2) % self.prime
+        return x3, y3, message * k_inv % self.prime
 
-def encrypt_AES_GCM(msg, secretKey):
-    aesCipher = AES.new(secretKey, AES.MODE_GCM)
-    ciphertext, authTag = aesCipher.encrypt_and_digest(msg)
-    return ciphertext, aesCipher.nonce, authTag
+    def decrypt(self, ciphertext):
+        k = random.randrange(1, self.prime)
 
+        x3, y3, c = ciphertext
+        x1, y1 = (x3 * self.private_key) % self.prime, (y3 * self.private_key) % self.prime
+        x2, y2 = self.generator
+        x, y = (x1 - x2) % self.prime, (y1 - y2) % self.prime
+        return c * self._modinv(k, self.prime) % self.prime
 
-def decrypt_AES_GCM(ciphertext, nonce, authTag, secretKey):
-    aesCipher = AES.new(secretKey, AES.MODE_GCM, nonce)
-    plaintext = aesCipher.decrypt_and_verify(ciphertext, authTag)
-    return plaintext
+    def _modinv(self, a, m):
+        g, x, _ = self._egcd(a, m)
+        if g != 1:
+            raise Exception("Modular inverse does not exist")
+        else:
+            return x % m
 
-
-def ecc_point_to_256_bit_key(point):
-    sha = hashlib.sha256(int.to_bytes(point.x, 32, 'big'))
-    sha.update(int.to_bytes(point.y, 32, 'big'))
-    return sha.digest()
-class ECCManager(EncryptionManager):
-    def __init__(self,curve):
-        self._curve = curve
-
-    def encrypt(self, data, pubKey):
-        ciphertextPrivateKey = secrets.randbelow(self._curve.field.n)
-        sharedECCKey = ciphertextPrivateKey * pubKey
-        secretKey = ecc_point_to_256_bit_key(sharedECCKey)
-        ciphertext, nonce, authTag = encrypt_AES_GCM(data, secretKey)
-        ciphertextPubKey = ciphertextPrivateKey * self._curve.g
-        return ciphertext, nonce, authTag, ciphertextPubKey
-
-    def decrypt(self, data, privKey):
-        ciphertext, nonce, authTag, ciphertextPubKey = data
-        sharedECCKey = privKey * ciphertextPubKey
-        secretKey = ecc_point_to_256_bit_key(sharedECCKey)
-        plaintext = decrypt_AES_GCM(ciphertext, nonce, authTag, secretKey)
-        return plaintext
-
-    @property
-    def curve(self):
-        return self._curve
-
-
-msg = b'Hello World'
-print(f'Original data: {msg}')
-ecc = ECCManager(registry.get_curve('brainpoolP256r1'))
-privateKey = secrets.randbelow(ecc._curve.field.n)
-publicKey = privateKey * ecc.curve.g
-print(f'Public key: {publicKey}')
-ciphertext, nonce, authTag, ciphertextPubKey = ecc.encrypt(msg, publicKey)
-print(f'Ciphertext: {ciphertext}')
-print(f'Nonce: {nonce}')
-print(f'AuthTag: {authTag}')
-print(f'Ciphertext public key: {ciphertextPubKey}')
-plaintext = ecc.decrypt((ciphertext, nonce, authTag, ciphertextPubKey), privateKey)
-print(f'Plaintext: {plaintext}')
-
-
-
-
-
+    def _egcd(self, a, b):
+        if a == 0:
+            return b, 0, 1
+        else:
+            g, y, x = self._egcd(b % a, a)
+            return g, x - (b // a) * y, y
 
 

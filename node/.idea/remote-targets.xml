@@ -15,6 +15,18 @@
           </config>
         </ContributedStateBase>
       </target>
+      <target name="WSL - kali-linux" type="wsl" uuid="fd12a744-9fc1-4717-85c1-5593837d8e7d">
+        <config>
+          <option name="distributionMsId" value="kali-linux" />
+        </config>
+        <ContributedStateBase type="GoLanguageRuntime">
+          <config>
+            <option name="goPath" value="/home/orim05/go" />
+            <option name="goRoot" value="/usr/bin/go" />
+            <option name="goVersion" value="go1.19.3 linux/amd64" />
+          </config>
+        </ContributedStateBase>
+      </target>
     </targets>
   </component>
 </project>

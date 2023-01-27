@@ -2,6 +2,7 @@ from EncryptionManager import EncryptionManager
 import base64
 from Crypto.Cipher import AES
 from Crypto import Random
+from utils import generate_AES_key as generate_key
 
 
 class AESManager(EncryptionManager):
@@ -20,10 +21,6 @@ class AESManager(EncryptionManager):
         return cipher.decrypt(data[AES.block_size:])
 
 
-def generate_key():
-    return Random.new().read(AES.block_size)
-
-
 if __name__ == '__main__':
     key = generate_key()
     aes = AESManager(key)
@@ -31,6 +28,6 @@ if __name__ == '__main__':
     print(f'Original data: {data_to_test}')
     print(f'Key: {key}')
     encrypted = aes.encrypt(data_to_test.encode())
-    print(encrypted)
+    print(encrypted.decode())
     decrypted = aes.decrypt(encrypted).decode()
     print(decrypted)
