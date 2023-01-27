@@ -5,7 +5,7 @@
 #include <random>
 #include "SqliteDataBase.h"
 #include "sqlite3.h"
-
+#define NUM_OF_NODES 1
 SqliteDataBase::SqliteDataBase() {
     this->db = nullptr;
     int rc = sqlite3_open("database.sqlite", &this->db);
@@ -67,6 +67,8 @@ bool SqliteDataBase::addNewNode(NewNode newNodeStruct){
 
 }
 
+
+
 bool SqliteDataBase::deleteNode(std::string IP) {
     std::string sql = "DELETE from Nodes where ip='" + IP + "';";
     char* zErrMsg = 0;
@@ -80,38 +82,49 @@ bool SqliteDataBase::deleteNode(std::string IP) {
         return true;
     }
 }
+
+
 int callback(void* nodes, int argc, char** argv, char** azColName) {
-    std::vector<NewNode>* nodesVector = (std::vector<NewNode>*)nodes;
-    for (int i = 0; i < argc; i++) {
-        NewNode newNode;
-        newNode.encryptionType = std::string(argv[0]);
-        newNode.publicKey = std::stoi(argv[1]);
-        newNode.privateKey = std::stoi(argv[2]);
-        newNode.ipdata.ip = std::string(argv[3]);
-        newNode.port = std::stoi(argv[4]);
-        newNode.ipdata.isp = std::string(argv[5]);
-        newNode.ipdata.country = std::string(argv[6]);
-        newNode.ipdata.continent = std::string(argv[7]);
-        newNode.ipdata.regionName = std::string(argv[8]);
-        newNode.ipdata.city = std::string(argv[9]);
-        nodesVector->push_back(newNode);
+    NewNode newNode;
+    IpData ipData;
+    newNode.encryptionType = std::string(argv[1]);
+    newNode.publicKey = std::stoi(argv[2]);
+    newNode.privateKey = std::stoi(argv[3]);
+    ipData.ip = std::string(argv[4]);
+    newNode.port = std::stoi(argv[5]);
+    ipData.isp = std::string(argv[6]);
+    ipData.country = std::string(argv[7]);
+    ipData.continent = std::string(argv[8]);
+    ipData.regionName = std::string(argv[9]);
+    ipData.city = std::string(argv[10]);
+    newNode.ipdata = ipData;
+    ((std::vector<NewNode>*)nodes)->push_back(newNode);
 
-    }
-    nodes = (void*)nodesVector;
-
+    return 0;
 
 }
 
+//a function that checks if an object is in a vector of the same type
+template<typename T>
+bool isInVector(std::vector<T> vector, T object) {
+    for (auto& i : vector) {
+        if (i == object) {
+            return true;
+        }
+    }
+    return false;
+}
+
 /*
- * the function gets a ipData struct and a blacklist struct and returns a NodeData array with the route, every node in the route is a NodeData struct that all of the parameters in the struct are not in one of the vectors in the blacklist struct
+ * the function gets a IpData struct and a blacklist struct and returns a NodeData array with the route, every node in the route is a NodeData struct that all of the parameters in the struct are not in one of the vectors in the blacklist struct
  */
 NodeData* SqliteDataBase::getRoute(Blacklist blackList) {
-    NodeData* route = new NodeData[3];
+    NodeData* route = new NodeData[NUM_OF_NODES];
     int i = 0;
     //for evey node in the database check if the node is in the blacklist if it is not add it to the route
     std::string sql = "SELECT * from Nodes;";
     char* zErrMsg = 0;
-    std::vector<NewNode>* nodeStructs;
+    auto nodeStructs = new std::vector<NewNode>;
     int rc = sqlite3_exec(this->db, sql.c_str(), callback, (void*)nodeStructs, &zErrMsg);
     if (rc != SQLITE_OK) {
         std::cerr << "SQL error: " << zErrMsg << std::endl;
@@ -121,27 +134,22 @@ NodeData* SqliteDataBase::getRoute(Blacklist blackList) {
     //randomize the vector
     std::shuffle(nodeStructs->begin(), nodeStructs->end(), std::mt19937(std::random_device()()));
 
-
-    for (auto node : *nodeStructs) {
-        if (std::find(blackList.continent.begin(), blackList.continent.end(), node.ipdata.continent) == blackList.continent.end() &&
-            std::find(blackList.country.begin(), blackList.country.end(), node.ipdata.country) == blackList.country.end() &&
-            std::find(blackList.regionName.begin(), blackList.regionName.end(), node.ipdata.regionName) == blackList.regionName.end() &&
-            std::find(blackList.city.begin(), blackList.city.end(), node.ipdata.city) == blackList.city.end()) {
+    for(auto node : *nodeStructs){
+        if (!isInVector(blackList.continent, node.ipdata.continent) && !isInVector(blackList.country, node.ipdata.country) && !isInVector(blackList.regionName, node.ipdata.regionName) && !isInVector(blackList.city, node.ipdata.city) && !isInVector(blackList.isp, node.ipdata.isp)) {
             route[i].encryption = node.encryptionType;
             route[i].key = node.publicKey;
             route[i].ip = node.ipdata.ip;
             route[i].port = node.port;
-            i++;
 
+            i++;
         }
-        if (i == 3) {
+        if (i == NUM_OF_NODES) {
             break;
         }
     }
 
-    if (i != 3) {
-        return nullptr;
-    }
+
+    if (i != NUM_OF_NODES) return nullptr;
     return route;
 }
 

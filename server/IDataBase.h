@@ -10,7 +10,7 @@ typedef struct NewNode{
     int publicKey;
     int privateKey;
     int port;
-    ipData ipdata;
+    IpData ipdata;
 
 
 } NewNode;

@@ -23,7 +23,7 @@ Communicator::~Communicator() {
 }
 
 /*
- * function binds s/*erver socket to port and starts listening
+ * function binds server socket to port and starts listening
  * input: none
  * output: none
  */

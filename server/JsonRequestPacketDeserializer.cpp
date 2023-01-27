@@ -21,13 +21,13 @@ Blacklist JsonRequestPacketDeserializer::deserializeGetRouteRequest(Buffer buffe
     return location;
 }
 
-ipData JsonRequestPacketDeserializer::deserializeIpData(std::string buffer) {
+IpData JsonRequestPacketDeserializer::deserializeIpData(std::string buffer) {
     nlohmann::json jsonObject = nlohmann::json::parse(buffer);
     if(jsonObject["status"] == "fail")
     {
         throw std::runtime_error("api request failed");
     }
-    ipData data;
+    IpData data;
     data.ip = jsonObject["query"];
     data.continent = jsonObject["continent"];
     data.country = jsonObject["country"];

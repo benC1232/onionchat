@@ -11,7 +11,7 @@ LoginManager::~LoginManager() {
 }
 
 bool LoginManager::login(std::string IP, int port) {
-    ipData ipDataVar = getIpData(IP);
+    IpData ipDataVar = getIpData(IP);
     if (ipDataVar.ip == "") {
         return false;
     }
