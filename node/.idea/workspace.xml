@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0e64b5b-decc-4d16-bd49-6af054c9d82b" name="Changes" comment="fixed a function">
+      <change beforePath="$PROJECT_DIR$/../client/.idea/client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/client.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/server_comm.py" beforeDir="false" afterPath="$PROJECT_DIR$/../client/server_comm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/remote-targets.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/remote-targets.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/LoginManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../server/LoginManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/RequestHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../server/RequestHandler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/SqliteDataBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../server/SqliteDataBase.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

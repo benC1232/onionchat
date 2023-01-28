@@ -34,18 +34,22 @@ bool LoginManager::logout(std::string IP) {
     return m_dataBase->deleteNode(IP);
 }
 
+
+
 std::vector<NodeData> nodeDataArrayToVector(NodeData* nodeDataArray) {
+    int size = sizeof(nodeDataArray) / sizeof(nodeDataArray[0]);
     std::vector<NodeData> nodeDataVector;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < size; i++) {
         nodeDataVector.push_back(nodeDataArray[i]);
     }
     return nodeDataVector;
 }
 
-std::tuple<bool,std::vector<NodeData>>  LoginManager::getRoute(Blacklist blacklist) {
+std::tuple<bool,std::vector<NodeData>> LoginManager::getRoute(Blacklist blacklist) {
     bool found = false;
     NodeData* nodeData = m_dataBase->getRoute(blacklist);
-    found = nodeData!= nullptr;
+    found = nodeData[0].ip != "";
+
     return std::make_tuple(found,nodeDataArrayToVector(nodeData));
 
 }

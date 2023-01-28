@@ -6,6 +6,7 @@
 #include "SqliteDataBase.h"
 #include "sqlite3.h"
 #define NUM_OF_NODES 1
+#define EMPTY_NODE { "", 0, "", 0 }
 SqliteDataBase::SqliteDataBase() {
     this->db = nullptr;
     int rc = sqlite3_open("database.sqlite", &this->db);
@@ -54,6 +55,7 @@ SqliteDataBase::~SqliteDataBase() {
 bool SqliteDataBase::addNewNode(NewNode newNodeStruct){
     std::string sql = "INSERT INTO Nodes (EncryptionType, PublicKey, PrivateKey, IP, Port, ISP, COUNTRY, CONTINENT, RegionName, City) "
                       "VALUES ('" + newNodeStruct.encryptionType + "', " + std::to_string(newNodeStruct.publicKey) + ", " + std::to_string(newNodeStruct.privateKey) + ", '" + newNodeStruct.ipdata.ip + "', " + std::to_string(newNodeStruct.port) + ", '" + newNodeStruct.ipdata.isp+"', '" + newNodeStruct.ipdata.country+"', '" + newNodeStruct.ipdata.continent+"', '" + newNodeStruct.ipdata.regionName+"', '" + newNodeStruct.ipdata.city+"');";
+
     char* zErrMsg = 0;
     int rc = sqlite3_exec(this->db, sql.c_str(), nullptr, 0, &zErrMsg);
     if (rc != SQLITE_OK) {
@@ -109,6 +111,7 @@ template<typename T>
 bool isInVector(std::vector<T> vector, T object) {
     for (auto& i : vector) {
         if (i == object) {
+            std::cout << i << " is in vector of his type" << std::endl;
             return true;
         }
     }
@@ -120,7 +123,6 @@ bool isInVector(std::vector<T> vector, T object) {
  */
 NodeData* SqliteDataBase::getRoute(Blacklist blackList) {
     NodeData* route = new NodeData[NUM_OF_NODES];
-    int i = 0;
     //for evey node in the database check if the node is in the blacklist if it is not add it to the route
     std::string sql = "SELECT * from Nodes;";
     char* zErrMsg = 0;
@@ -133,7 +135,7 @@ NodeData* SqliteDataBase::getRoute(Blacklist blackList) {
 
     //randomize the vector
     std::shuffle(nodeStructs->begin(), nodeStructs->end(), std::mt19937(std::random_device()()));
-
+    int i = 0;
     for(auto node : *nodeStructs){
         if (!isInVector(blackList.continent, node.ipdata.continent) && !isInVector(blackList.country, node.ipdata.country) && !isInVector(blackList.regionName, node.ipdata.regionName) && !isInVector(blackList.city, node.ipdata.city) && !isInVector(blackList.isp, node.ipdata.isp)) {
             route[i].encryption = node.encryptionType;
@@ -148,10 +150,16 @@ NodeData* SqliteDataBase::getRoute(Blacklist blackList) {
         }
     }
 
+    if (i < NUM_OF_NODES) {
+        std::cout << "not enough nodes in the database" << std::endl;
+        for(int i = 0; i < NUM_OF_NODES; i++){
+            route[i] = EMPTY_NODE;
+        }
+    }
 
-    if (i != NUM_OF_NODES) return nullptr;
+
+
     return route;
 }
-
 
 

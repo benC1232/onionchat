@@ -81,7 +81,14 @@ RequestResult RequestHandler::getRoute(RequestInfo requestInfo) const {
     Blacklist blacklist = JsonRequestPacketDeserializer::deserializeGetRouteRequest(requestInfo.buffer);
     auto [found, route] = this->m_requestHandlerFactory->getLoginManager()->getRoute(blacklist);
     if(found){
-        num.route = route;
+        for(auto node: route){
+            NodeData nodeData;
+            nodeData.ip = node.ip;
+            nodeData.port = node.port;
+            nodeData.encryption = node.encryption;
+            nodeData.key = node.key;
+            num.route.push_back(nodeData);
+        }
         result.newHandler = this->m_requestHandlerFactory->createRequestHandler(this->ip, 0);
         result.buffer = JsonResponsePacketSerializer::serializeResponse(num);
         result.bufferSize = result.buffer.size();

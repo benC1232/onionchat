@@ -25,6 +25,7 @@ def get_path():
         data = s.recv(1024)
         print(data)
         response = data[5:get_len(data)+5]
+        print(response)
         return parse_response(response)
 
 
