@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#define NUM_OF_NODES 1
 
 
 class SqliteDataBase: public IDataBase {

@@ -1,5 +1,8 @@
 #include "LoginManager.h"
 #include "APICommunicator.h"
+#include "SqliteDataBase.h"
+
+#include <iostream>
 #include <tuple>
 
 LoginManager::LoginManager(IDataBase *dataBase) {
@@ -36,21 +39,20 @@ bool LoginManager::logout(std::string IP) {
 
 
 
-std::vector<NodeData> nodeDataArrayToVector(NodeData* nodeDataArray) {
-    int size = sizeof(nodeDataArray) / sizeof(nodeDataArray[0]);
-    std::vector<NodeData> nodeDataVector;
-    for (int i = 0; i < size; i++) {
-        nodeDataVector.push_back(nodeDataArray[i]);
+std::vector<NodeData> nodeDataArrayToVector(NodeData* nodeDataArray){
+    std::vector<NodeData> vec;
+    for(int i = 0;i<NUM_OF_NODES;i++){
+        vec.push_back(nodeDataArray[i]);
     }
-    return nodeDataVector;
+    return vec;
 }
 
 std::tuple<bool,std::vector<NodeData>> LoginManager::getRoute(Blacklist blacklist) {
     bool found = false;
     NodeData* nodeData = m_dataBase->getRoute(blacklist);
     found = nodeData[0].ip != "";
-
-    return std::make_tuple(found,nodeDataArrayToVector(nodeData));
+    auto vec = nodeDataArrayToVector(nodeData);
+    return std::make_tuple(found,vec);
 
 }
 

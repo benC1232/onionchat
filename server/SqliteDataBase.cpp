@@ -5,7 +5,6 @@
 #include <random>
 #include "SqliteDataBase.h"
 #include "sqlite3.h"
-#define NUM_OF_NODES 1
 #define EMPTY_NODE { "", 0, "", 0 }
 SqliteDataBase::SqliteDataBase() {
     this->db = nullptr;
@@ -122,7 +121,7 @@ bool isInVector(std::vector<T> vector, T object) {
  * the function gets a IpData struct and a blacklist struct and returns a NodeData array with the route, every node in the route is a NodeData struct that all of the parameters in the struct are not in one of the vectors in the blacklist struct
  */
 NodeData* SqliteDataBase::getRoute(Blacklist blackList) {
-    NodeData* route = new NodeData[NUM_OF_NODES];
+    auto  route = new NodeData[NUM_OF_NODES];
     //for evey node in the database check if the node is in the blacklist if it is not add it to the route
     std::string sql = "SELECT * from Nodes;";
     char* zErrMsg = 0;
