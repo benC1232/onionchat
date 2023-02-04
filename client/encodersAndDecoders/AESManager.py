@@ -6,28 +6,28 @@ from utils import generate_AES_key as generate_key
 
 
 class AESManager(EncryptionManager):
-    def __init__(self, key):
-        self._key = key
+    def __init__(self):
+        pass
 
-    def encrypt(self, data):
+    def encrypt(self, data, key):
         iv = Random.new().read(AES.block_size)
-        cipher = AES.new(self._key, AES.MODE_CFB, iv)
+        cipher = AES.new(key, AES.MODE_CFB, iv)
         return base64.b64encode(iv + cipher.encrypt(data))
 
-    def decrypt(self, data):
+    def decrypt(self, data, key):
         data = base64.b64decode(data)
         iv = data[:AES.block_size]
-        cipher = AES.new(self._key, AES.MODE_CFB, iv)
+        cipher = AES.new(key, AES.MODE_CFB, iv)
         return cipher.decrypt(data[AES.block_size:])
 
 
 if __name__ == '__main__':
-    key = generate_key()
-    aes = AESManager(key)
+    keyAES = generate_key()
+    aes = AESManager()
     data_to_test = 'Hello World'
     print(f'Original data: {data_to_test}')
-    print(f'Key: {key}')
-    encrypted = aes.encrypt(data_to_test.encode())
+    print(f'Key: {keyAES}')
+    encrypted = aes.encrypt(data_to_test.encode(), keyAES)
     print(encrypted.decode())
-    decrypted = aes.decrypt(encrypted).decode()
+    decrypted = aes.decrypt(encrypted, keyAES).decode()
     print(decrypted)
