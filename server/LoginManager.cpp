@@ -28,9 +28,6 @@ bool LoginManager::login(std::string IP, int port) {
 
     return m_dataBase->addNewNode(newNode);
 
-
-
-
 }
 
 bool LoginManager::logout(std::string IP) {

@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0e64b5b-decc-4d16-bd49-6af054c9d82b" name="Changes" comment="fixed a function">
-      <change beforePath="$PROJECT_DIR$/../client/.idea/client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/client.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/server_comm.py" beforeDir="false" afterPath="$PROJECT_DIR$/../client/server_comm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/remote-targets.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/remote-targets.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/APICommunicator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../server/APICommunicator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/JsonRequestPacketDeserializer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../server/JsonRequestPacketDeserializer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/LoginManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../server/LoginManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/RequestHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../server/RequestHandler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/SqliteDataBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../server/SqliteDataBase.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +24,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../Program Files/Go" />
+  <component name="GOROOT" url="file://$USER_HOME$/sdk/go1.19" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -51,13 +50,15 @@
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
     "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
     "WebServerToolWindowFactoryState": "false",
+    "configurable..is.expanded": "false",
+    "configurable.GoLibrariesConfigurable.is.expanded": "true",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "C:/Users/orime",
+    "last_opened_file_path": "C:/Users/magshimim",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "configurable.group.build"
+    "settings.editor.selected.configurable": "go.sdk"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -80,7 +81,7 @@
     </configuration>
     <configuration name="go build node" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="node" />
-      <target name="WSL - kali-linux" />
+      <target name="WSL - Ubuntu" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
       <package value="node" />

@@ -28,7 +28,14 @@ IpData JsonRequestPacketDeserializer::deserializeIpData(std::string buffer) {
         throw std::runtime_error("api request failed");
     }
     IpData data;
-    data.ip = jsonObject["query"];
+    if(jsonObject["query"] == "1.1.1.1")
+    {
+        data.ip = "127.0.0.1";
+    }
+    else
+    {
+        data.ip = jsonObject["query"];
+    }
     data.continent = jsonObject["continent"];
     data.country = jsonObject["country"];
     data.regionName = jsonObject["regionName"];
