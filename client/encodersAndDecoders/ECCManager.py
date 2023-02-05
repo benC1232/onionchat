@@ -1,6 +1,7 @@
 import math
 import random
 from abc import ABC
+import pickle
 
 from tinyec import registry
 from Crypto.Cipher import AES
@@ -47,22 +48,12 @@ class ECCManager(EncryptionManager.EncryptionManager, ABC):
         return plaintext
 
 
-def cipherTupleToDict(cipherTuple):
-    return {
-        'ciphertext': binascii.hexlify(cipherTuple[0]),
-        'nonce': binascii.hexlify(cipherTuple[1]),
-        'authTag': binascii.hexlify(cipherTuple[2]),
-        'ciphertextPubKey': hex(cipherTuple[3].x) + hex(cipherTuple[3].y % 2)[2:]
-    }
+def to_bytes(data):
+    return pickle.dumps(data)
 
 
-def DictToCipherTuple(cipherDict):
-    return (
-        binascii.unhexlify(cipherDict['ciphertext']),
-        binascii.unhexlify(cipherDict['nonce']),
-        binascii.unhexlify(cipherDict['authTag']),
-        registry.get_curve('brainpoolP256r1')
-    )
+def from_bytes(data):
+    return pickle.loads(data)
 
 
 if __name__ == '__main__':
@@ -74,9 +65,11 @@ if __name__ == '__main__':
     pubKey = privKey * cur.g
     ecc = ECCManager(cur)
     encryptedMsg = ecc.encrypt(msg, pubKey)
-    encryptedMsgObj = cipherTupleToDict(encryptedMsg)
-    print("encrypted msg:", encryptedMsgObj)
 
-    encryptedMsg = DictToCipherTuple(encryptedMsgObj)
+    print("encrypted msg:", encryptedMsg)
+    enc_data_bytes = to_bytes(encryptedMsg)
+    print("encrypted msg bytes:", enc_data_bytes)
+    encryptedMsg = from_bytes(enc_data_bytes)
+    print("encrypted msg:", encryptedMsg)
     decryptedMsg = ecc.decrypt(encryptedMsg, privKey)
     print("decrypted msg:", decryptedMsg)
