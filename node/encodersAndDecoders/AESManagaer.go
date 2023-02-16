@@ -11,7 +11,7 @@ type AESManager struct {
 	key []byte
 }
 
-// constructor CFB
+// NewAESManager constructor CFB
 func NewAESManager(key []byte) *AESManager {
 	return &AESManager{key}
 }

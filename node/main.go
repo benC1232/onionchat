@@ -17,4 +17,4 @@ func main() {
 	plaintext = aesManager.Decrypt(ciphertext)
 	fmt.Println("plaintext: ", (string)(plaintext))
 
-
+}
