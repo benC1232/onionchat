@@ -275,6 +275,4 @@ CMakeFiles/server.dir/LoginManager.cpp.o: \
  /usr/include/linux/close_range.h /usr/include/c++/12/fstream \
  /usr/include/x86_64-linux-gnu/c++/12/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/12/bits/c++io.h \
- /usr/include/c++/12/bits/fstream.tcc \
- /mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/SqliteDataBase.h \
- /mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/sqlite3.h
+ /usr/include/c++/12/bits/fstream.tcc

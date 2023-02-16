@@ -94,6 +94,12 @@
 		<Unit filename="/mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/Communicator.h">
 			<Option target="server"/>
 		</Unit>
+		<Unit filename="/mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/EncryptionUtils.cpp">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/EncryptionUtils.h">
+			<Option target="server"/>
+		</Unit>
 		<Unit filename="/mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/HandlerStructs.h">
 			<Option target="server"/>
 		</Unit>
@@ -130,12 +136,6 @@
 		<Unit filename="/mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/NodeData.h">
 			<Option target="server"/>
 		</Unit>
-		<Unit filename="/mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/NodeRequestHandler.cpp">
-			<Option target="server"/>
-		</Unit>
-		<Unit filename="/mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/NodeRequestHandler.h">
-			<Option target="server"/>
-		</Unit>
 		<Unit filename="/mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/RequestHandler.cpp">
 			<Option target="server"/>
 		</Unit>
@@ -158,6 +158,12 @@
 			<Option target="server"/>
 		</Unit>
 		<Unit filename="/mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/SqliteDataBase.h">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/base64.cpp">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="/mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/base64.h">
 			<Option target="server"/>
 		</Unit>
 		<Unit filename="/mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/main.cpp">

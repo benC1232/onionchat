@@ -246,6 +246,4 @@ CMakeFiles/server.dir/RequestHandlerFactory.cpp.o: \
  /usr/include/c++/12/any \
  /mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/IRequestHandler.h \
  /mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/HandlerStructs.h \
- /mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/RequestHandler.h \
- /mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/NodeRequestHandler.h \
- /mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/JsonResponsePacketSerializer.h
+ /mnt/c/Magshimim/ThirdYear/haifa-1204-onionchat/server/RequestHandler.h

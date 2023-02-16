@@ -1,8 +1,9 @@
 #include <iostream>
 #include "Server.h"
 #include <string>
-
+#include "EncryptionUtils.h"
 int main() {
+
     Server* server = new Server();
     try
     {
