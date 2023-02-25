@@ -1,0 +1,28 @@
+{
+  "name": "demo",
+  "version": "5.0.0",
+  "description": "a GUI for the onionchat project",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/oballa/haifa-1204-onionchat.git"
+  },
+  "author": "ben&ori",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/oballa/haifa-1204-onionchat/issues"
+  },
+  "homepage": "https://gitlab.com/oballa/haifa-1204-onionchat#readme",
+  "devDependencies": {
+    "electron": "^23.1.1",
+    "electron-packager": "^17.1.1",
+    "electron-wix-msi": "^5.0.0"
+  },
+  "dependencies": {
+    "net": "^1.0.2"
+  }
+}
