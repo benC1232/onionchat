@@ -1,3 +1,5 @@
+# gitignore ide files
+.idea
 # Created by https://www.toptal.com/developers/gitignore/api/c,vs,go,c++,python,goland+all,pycharm+all,visualstudio,jetbrains+all,visualstudiocode,clion+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,vs,go,c++,python,goland+all,pycharm+all,visualstudio,jetbrains+all,visualstudiocode,clion+all
 
