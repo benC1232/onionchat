@@ -14,10 +14,14 @@ RequestHandlerFactory::~RequestHandlerFactory() {
     delete m_dataBase;
 }
 
-RequestHandler* RequestHandlerFactory::createRequestHandler(std::string ip) {
-    return new RequestHandler(this, ip);
+RequestHandler * RequestHandlerFactory::createRequestHandler(std::string ip, int socket) {
+    return new RequestHandler(this, ip, socket);
 }
 
 LoginManager* RequestHandlerFactory::getLoginManager() {
     return m_loginManager;
+}
+
+NodeRequestHandler *RequestHandlerFactory::createNodeRequestHandler(std::string ip, int socket) {
+    return new NodeRequestHandler(this, ip, socket);
 }

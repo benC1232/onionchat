@@ -5,7 +5,8 @@
  * input: none
  * output: none
  */
-Communicator::Communicator(RequestHandlerFactory &mHandlerFactory) : m_handlerFactory(mHandlerFactory) {
+Communicator::Communicator(RequestHandlerFactory &mHandlerFactory)
+        : m_handlerFactory(mHandlerFactory) {
     this->m_serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (this->m_serverSocket < 0) {
         throw std::runtime_error("socket wasn't created successfully");
@@ -22,7 +23,7 @@ Communicator::~Communicator() {
 }
 
 /*
- * function binds s/*erver socket to port and starts listening
+ * function binds server socket to port and starts listening
  * input: none
  * output: none
  */
@@ -53,7 +54,7 @@ void Communicator::bindAndListen() {
     unsigned int addr_len = sizeof(client_sin);
     int client_sock = accept(this->m_serverSocket, (struct sockaddr *) &client_sin, &addr_len);
     std::string ip = std::string(inet_ntoa(client_sin.sin_addr));
-    RequestHandler *handler = this->m_handlerFactory.createRequestHandler(ip);
+    RequestHandler *handler = this->m_handlerFactory.createRequestHandler(ip, client_sock);
     this->m_clients.insert({client_sock, handler});
     this->threadVector.push_back(std::thread(&Communicator::handleNewClient, client_sock, handler));
 }
@@ -98,7 +99,7 @@ void Communicator::write(RequestResult message, int clientSock) {
  * output: message that was sent to server
  */
 RequestInfo Communicator::read(int clientSock) {
-    char buffer[MESSAGE_SIZE];
+    unsigned char buffer[MESSAGE_SIZE];
     int expected_data_len = sizeof(buffer);
     ssize_t read_bytes = recv(clientSock, buffer, expected_data_len, 0);
     RequestInfo request;
@@ -113,7 +114,7 @@ RequestInfo Communicator::read(int clientSock) {
 /*
  * extracts the length field from the packet
  */
-int Communicator::getJsonSize(const char *buffer) {
+int Communicator::getJsonSize(const unsigned char *buffer) {
     //don't change!!!!!!!! it works!!!!!!!!
     const int size = buffer[1] << 24 | buffer[2] << 16 | buffer[3] << 8 | buffer[4];
     return size;

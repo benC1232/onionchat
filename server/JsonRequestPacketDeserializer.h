@@ -38,24 +38,15 @@ typedef struct ipData{
     std::string regionName;
     std::string city;
     std::string isp;
-}ipData;
-
-typedef struct GetRouteRequest{
-    int status;
-    ipData destination;
-    Blacklist blacklist;
-}GetRouteRequest;
+}IpData;
 
 
 
 class JsonRequestPacketDeserializer {
 public:
     static LoginRequest deserializeLoginRequest(Buffer buffer);
-    static LogoutRequest deserializeLogoutRequest(Buffer buffer);
-    static GetRouteRequest deserializeGetRouteRequest(Buffer buffer);
-    static ipData deserializeIpData(std::string buffer);
-    static Blacklist deserializeBlacklist(Buffer buffer);
-
+    static Blacklist deserializeGetRouteRequest(Buffer buffer);
+    static IpData deserializeIpData(std::string buffer);
 };
 
 

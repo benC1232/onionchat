@@ -1,13 +1,18 @@
 package communicator
 
 import (
+	"bytes"
+	"encoding/binary"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"log"
+	"net"
 	"node/deserializer"
 	"node/serializer"
+	"os"
 	"strconv"
 	"time"
-
-	"net"
 )
 
 const SERVER string = "127.0.0.1:60005"
@@ -24,17 +29,37 @@ type Communicator struct {
 	socketMap SocketMap
 	serSock   net.Conn
 }
+type Settings struct {
+	Ip          string `json:"server_ip"`
+	Server_port int    `json:"server_port"`
+	Port        int    `json:"proxy_port"`
+}
+type ServerInfo struct {
+	Port int
+}
 
 func (communicator *Communicator) initServerConnection() bool {
+	jsonFile, err := os.Open("settings.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	var settings Settings
+	err = json.Unmarshal(byteValue, &settings)
+	if err != nil {
+		fmt.Println(err)
+	}
+	InfoObj := ServerInfo{Port: settings.Port}
+	info, err := json.Marshal(InfoObj)
 
-	data := []byte{}
+	data := info
 	serializedMessage := serializer.SerializedMessageToServer{
 		Code:   serializer.CONNECTION_REQUEST,
-		Length: 0,
+		Length: len(data),
 		Data:   data,
 	}
 	serializedMessageBytes := serializer.SerializeToServer(serializedMessage)
-	_, err := communicator.serSock.Write(serializedMessageBytes)
+	_, err = communicator.serSock.Write(serializedMessageBytes)
 	if err != nil {
 		panic(err)
 	}
@@ -51,12 +76,21 @@ func (communicator *Communicator) initServerConnection() bool {
 
 func (communicator *Communicator) keepAlive() {
 	for {
-		time.Sleep(3 * time.Second)
-		fmt.Println("keep alive")
+		msg := 220
+		buff := new(bytes.Buffer)
+		err := binary.Write(buff, binary.LittleEndian, uint16(msg))
+		checkError(err)
+		_, err = communicator.serSock.Write(buff.Bytes())
+		checkError(err)
+		reply := make([]byte, 1024)
+		_, err = communicator.serSock.Read(reply)
+		checkError(err)
+		fmt.Println("kepalive succesful")
+		time.Sleep(120 * time.Second)
 	}
 }
 
-func NewCommunicator(numOfConnectionRequestToServer int) *Communicator {
+func NewCommunicator() *Communicator {
 	communicator := Communicator{}
 
 	serSock, err := net.Dial("tcp", SERVER)
@@ -65,15 +99,7 @@ func NewCommunicator(numOfConnectionRequestToServer int) *Communicator {
 	}
 	communicator.serSock = serSock
 
-	i := 0
-	for i = 0; i < numOfConnectionRequestToServer; i++ {
-		if communicator.initServerConnection() {
-			break
-		}
-	}
-	if i == numOfConnectionRequestToServer {
-		panic("could not connect to server")
-	}
+	communicator.initServerConnection()
 
 	go communicator.keepAlive()
 	return &communicator
@@ -87,7 +113,6 @@ func (communicator *Communicator) Delete() {
 	}
 
 	communicator.socketMap.sockets = []Pair{}
-
 	data := []byte{}
 	serializedMessageBytes := serializer.SerializeToServer(serializer.SerializedMessageToServer{
 		Code:   serializer.DISCONNECTION_REQUEST,
@@ -165,4 +190,11 @@ func (communicator *Communicator) handleNewConnection(socket net.Conn) {
 
 	go communicator.handleCommunication(pair)
 
+}
+
+func checkError(err error) {
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }

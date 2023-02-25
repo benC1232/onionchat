@@ -5,6 +5,7 @@
 #define LOGIN_RESPONSE_CODE 10
 #define GET_ROUTE_RESPONSE_CODE 20
 #define LOGOUT_RESPONSE_CODE 60
+#define KEEPALIVE_RESPONSE_CODE 50
 
 Buffer intToBuffer(int num)
 {
@@ -91,6 +92,19 @@ Buffer JsonResponsePacketSerializer::serializeResponse(GetRouteResponse getRoute
     Buffer buffer;
     buffer.push_back(GET_ROUTE_RESPONSE_CODE);
     const nlohmann::json jsonResponse = serializeNodeDataVector(getRouteResponse.route);
+    const std::string jsonString = nlohmann::to_string(jsonResponse);
+    Buffer lenBuff = intToBuffer(jsonString.length());
+    buffer.insert(buffer.end(), lenBuff.begin(), lenBuff.end());
+    for (unsigned char uc: jsonString) buffer.push_back(uc);
+    return buffer;
+}
+
+Buffer JsonResponsePacketSerializer::serializeResponse(KeepAliveResponse keepAliveResponse) {
+    Buffer buffer;
+    buffer.push_back(KEEPALIVE_RESPONSE_CODE);
+    const nlohmann::json jsonResponse {
+        {"status", ""+std::to_string(keepAliveResponse.status)}
+    };
     const std::string jsonString = nlohmann::to_string(jsonResponse);
     Buffer lenBuff = intToBuffer(jsonString.length());
     buffer.insert(buffer.end(), lenBuff.begin(), lenBuff.end());

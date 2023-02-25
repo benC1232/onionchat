@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:C:\Magshimim\ThirdYear\haifa-1204-onionchat\server\cmake-build-debug\database.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="database [2]" uuid="68dfc287-23a7-48d8-9209-5125832061a4">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\maghw\year3\haifa-1204-onionchat\server\cmake-build-debug\database.sqlite</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

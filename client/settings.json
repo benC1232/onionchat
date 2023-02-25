@@ -10,7 +10,8 @@
   "path_settings": {
     "continent": ["Antarctica", "Africa"],
     "country": ["Montenegro", "Antigua and Barbuda"],
-    "regionName": ["Quebec", "Queensland"],
-    "city": ["Ouagadougou", "Hell"]
+    "regionName": ["Quebec"],
+    "city": ["Ouagadougou", "Hell"],
+    "isp": ["Google LLC"]
   }
 }

@@ -7,7 +7,7 @@ class RequestHandlerFactory;
 
 class RequestHandler : public IRequestHandler{
 public:
-    RequestHandler(RequestHandlerFactory* requestHandler, std::string ip);
+    RequestHandler(RequestHandlerFactory *requestHandler, std::string ip, int socket);
 
     ~RequestHandler() = default;
     bool isRequestRelevant(RequestInfo request) override;
@@ -18,6 +18,7 @@ private:
     RequestResult getRoute(RequestInfo requestInfo) const;
     RequestHandlerFactory* m_requestHandlerFactory;
     std::string ip;
+    int socket;
 };
 
 
