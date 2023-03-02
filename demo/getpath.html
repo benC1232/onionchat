@@ -25,11 +25,10 @@
 
     const s = new net.Socket();
     
-    s.connect({port: +PORT}, {host: HOST}, {onread: function() {
-        const request = parse_request(150, "");
-        console.log(request);
-        s.write(request);
-    }});
+    s.connect({port: +PORT, host: HOST})
+    const request = parse_request(150, "");
+    console.log(request);
+    s.write(request);
     
     s.on('data', function(data) {
         console.log(data);
@@ -61,21 +60,48 @@ function parse_request(code, json) {
 }
 
 function displayPath(path) {
-    const pathEl = document.getElementById('path');
-    pathEl.innerHTML = '';
-    for (let i = 0; i < path.length; i++) {
-        const node = path[i];
-        const nodeEl = document.createElement('div');
-        nodeEl.innerHTML = `Node ${i+1}: ${node.ip}:${node.port} (encryption: ${node.encryption})`;
-        pathEl.appendChild(nodeEl);
-    }
+  const pathEl = document.getElementById('path');
+  pathEl.innerHTML = '';
+  
+  const pathList = document.createElement('ul');
+  for (let i = 0; i < path.length; i++) {
+    const node = path[i];
+    const nodeEl = document.createElement('li');
+    nodeEl.innerHTML = `Node ${i+1}: ${node.ip}:${node.port} (encryption: ${node.encryption})`;
+    pathList.appendChild(nodeEl);
+  }
+  
+  pathEl.appendChild(pathList);
 }
 
 function displayError(message) {
     const errorEl = document.getElementById('error');
     errorEl.innerHTML = message;
 }
-    
+function get_len(data) {
+    if (data.length < 5) {
+        throw new Error('Data is too short');
+    }
+    const lenBytes = data.slice(1, 5);
+    return lenBytes.readUInt32BE();
+}
+function parse_response(msg) {
+    const loaded_msg = JSON.parse(msg.toString())['route'];
+    const node_list = [];
+    let i = 1;
+    while (`node${i}` in loaded_msg) {
+        const node_data = loaded_msg[`node${i}`];
+        const node = {
+            ip: node_data['ip'],
+            port: node_data['port'],
+            encryption: node_data['encryption'],
+            index: i-1
+        };
+        node_list.push(node);
+        i++;
+    }
+    return node_list;
+}
   </script>
 </body>
 </html>

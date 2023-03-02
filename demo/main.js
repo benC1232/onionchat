@@ -9,10 +9,9 @@ const createWindow = () => {
     }
     const win = new BrowserWindow({
         webPreferences: webPrefrences,
-        titleBarOverlay: true,
-        titleBarStyle: 'hidden',
+        autoHideMenuBar: true,
         width: 800,
-        height: 600,
+        height: 650,
     });
 
   win.loadFile('index.html');

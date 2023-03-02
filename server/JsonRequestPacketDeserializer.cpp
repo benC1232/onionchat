@@ -11,6 +11,11 @@ LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(Buffer buffe
 
 Blacklist JsonRequestPacketDeserializer::deserializeGetRouteRequest(Buffer buffer){
     std::string jsonString(buffer.begin() ,buffer.end());
+    if(jsonString.length() == 0)
+    {
+        Blacklist blacklist = {};
+        return blacklist;
+    }
     nlohmann::json j = nlohmann::json::parse(jsonString);
     Blacklist location;
     location.continent = j.value("continent", std::vector<std::string>{});

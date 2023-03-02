@@ -64,6 +64,8 @@
   /* Set default font family to Open Sans */
 body {
   font-family: 'Open Sans', sans-serif;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /* Style headings */
@@ -92,15 +94,50 @@ p {
 
 /* Style lists */
 ul, ol {
-  font-size: 1.1rem;
-  line-height: 1.5;
-  color: #333;
-  margin-bottom: 1rem;
-  margin-left: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 li {
   margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+li:before {
+  content: '';
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  position: absolute;
+  top: 0.6rem;
+  left: 0;
+}
+.path-list li {
+  display: flex;
+  align-items: center;
+}
+
+.path-list li::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  vertical-align: middle;
+}
+/* Style nested lists */
+ul ul, ol ol {
+  margin-top: 0.5rem;
+}
+
+ul ul li:before, ol ol li:before {
+  top: 0.5rem;
 }
 
 /* Style buttons */
