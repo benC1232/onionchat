@@ -66,6 +66,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   padding-left: 20px;
   padding-right: 20px;
+  padding-bottom: 20px;
 }
 
 /* Style headings */
@@ -191,4 +192,28 @@ form {
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 10px;
+  }
+  #chatlog {
+    height: 400px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #fff;
+  }
+  
+  .sent {
+    color: #fff;
+    background-color: #008CBA;
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  
+  .received {
+    color: #000;
+    background-color: #f2f2f2;
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
   }

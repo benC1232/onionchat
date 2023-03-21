@@ -85,7 +85,7 @@ func (communicator *Communicator) keepAlive() {
 		reply := make([]byte, 1024)
 		_, err = communicator.serSock.Read(reply)
 		checkError(err)
-		fmt.Println("kepalive succesful")
+		fmt.Println("keepalive succesful")
 		time.Sleep(120 * time.Second)
 	}
 }

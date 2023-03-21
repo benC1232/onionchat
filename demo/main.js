@@ -11,7 +11,7 @@ const createWindow = () => {
         webPreferences: webPrefrences,
         autoHideMenuBar: true,
         width: 800,
-        height: 650,
+        height: 682,
     });
 
   win.loadFile('index.html');

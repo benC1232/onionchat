@@ -72,6 +72,12 @@ function displayPath(path) {
   }
   
   pathEl.appendChild(pathList);
+  const button = document.createElement('button');
+  button.innerHTML = 'start chatting';
+  const link = document.createElement('a');
+  link.href = 'communication.html';
+  link.appendChild(button);
+  pathEl.appendChild(link);
 }
 
 function displayError(message) {
