@@ -1,0 +1,17 @@
+{
+  "server_settings": {
+    "server_ip": "127.0.0.1",
+    "server_port": 60005
+  },
+  "dest_settings": {
+    "dest_ip": "127.0.0.1",
+    "dest_port": 34435
+  },
+  "path_settings": {
+    "continent": ["Antarctica", "Africa"],
+    "country": ["Montenegro", "Antigua and Barbuda"],
+    "regionName": ["Quebec"],
+    "city": ["Ouagadougou", "Hell"],
+    "isp": ["Google LLC"]
+  }
+}

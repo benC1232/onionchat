@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onion Routing Project - How it Works</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>How Onion Routing Works</h1>
+    <p>Onion routing is a technique for anonymous communication over a network. It involves sending data through a series of nodes, each of which only knows the identity of the previous and next nodes in the chain. By encrypting the data multiple times and routing it through these nodes, it becomes difficult to trace the origin and destination of the data.</p>
+
+    <h2>The Onion Routing Protocol</h2>
+    <p>The Onion Routing protocol involves several key steps:</p>
+    <ol>
+      <li>The sender encrypts the message and sends it to the first node in the chain.</li>
+      <li>The first node decrypts the message and forwards it to the next node in the chain.</li>
+      <li>This process continues until the message reaches the final node in the chain, which decrypts the message and sends it to the recipient.</li>
+    </ol>
+
+    <h2>The Benefits of Onion Routing</h2>
+    <p>Onion routing provides several benefits for users who require anonymity:</p>
+    <ul>
+      <li>It makes it difficult for third parties to trace the origin and destination of the data.</li>
+      <li>It can protect against surveillance and censorship.</li>
+      <li>It can help to protect user privacy.</li>
+    </ul>
+
+    <h2>The Onion Routing Project</h2>
+    <p>The Onion Routing project is a secure and anonymous communication project that utilizes onion routing technology to protect the identity and messages of its users. The project includes a server built using C++, utilizing SQLite and communicating with an IP geolocation API, a client built in Python and a node built in GoLang.</p>
+    <a href="getpath.html">
+        <button class="btn">Try it out</button>
+      </a>
+  </div>
+</body>
+</html>

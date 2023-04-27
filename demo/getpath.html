@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Get Path Form</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <form>
+    <label for="ip">Server IP:</label>
+    <input type="text" id="ip" name="ip" value="127.0.0.1"><br><br>
+    <label for="port">Server Port:</label>
+    <input type="text" id="port" name="port" value="60005"><br><br>
+    <button type="button" onclick="get_path()">Get Path</button>
+  </form>
+  <div id="path"></div>
+  <div id="error"></div>
+  <script>
+    const net = require('net');
+    const fs = require('fs');
+
+    function get_path() {
+    var HOST = document.getElementById("ip").value;
+    var PORT = document.getElementById("port").value;
+
+    const s = new net.Socket();
+    
+    s.connect({port: +PORT, host: HOST})
+    const request = parse_request(150, "");
+    console.log(request);
+    s.write(request);
+    
+    s.on('data', function(data) {
+        console.log(data);
+        const response = data.slice(5, get_len(data) + 5);
+        console.log(response);
+        localStorage.setItem("path", parse_response(response));
+        displayPath(parse_response(response));
+    });
+    
+    s.on('close', function() {
+        console.log('Connection closed');
+        s.destroy();
+    });
+
+    s.on('error', function(err) {
+        console.log('Socket error: ' + err);
+        s.destroy();
+        displayError('Error connecting to server: ' + err.message);
+    });
+}
+
+function parse_request(code, json) {
+    const codeBytes = Buffer.alloc(1);
+    codeBytes.writeUInt8(code);
+    const jsonBytes = Buffer.from(json, 'utf8');
+    const lenBytes = Buffer.alloc(4);
+    lenBytes.writeUInt32BE(jsonBytes.length);
+    return Buffer.concat([codeBytes, lenBytes, jsonBytes]);
+}
+
+function displayPath(path) {
+  const pathEl = document.getElementById('path');
+  pathEl.innerHTML = '';
+  
+  const pathList = document.createElement('ul');
+  for (let i = 0; i < path.length; i++) {
+    const node = path[i];
+    const nodeEl = document.createElement('li');
+    nodeEl.innerHTML = `Node ${i+1}: ${node.ip}:${node.port} (encryption: ${node.encryption})`;
+    pathList.appendChild(nodeEl);
+  }
+  
+  pathEl.appendChild(pathList);
+  const button = document.createElement('button');
+  button.innerHTML = 'start chatting';
+  const link = document.createElement('a');
+  link.href = 'communication.html';
+  link.appendChild(button);
+  pathEl.appendChild(link);
+}
+
+function displayError(message) {
+    const errorEl = document.getElementById('error');
+    errorEl.innerHTML = message;
+}
+function get_len(data) {
+    if (data.length < 5) {
+        throw new Error('Data is too short');
+    }
+    const lenBytes = data.slice(1, 5);
+    return lenBytes.readUInt32BE();
+}
+function parse_response(msg) {
+    const loaded_msg = JSON.parse(msg.toString())['route'];
+    const node_list = [];
+    let i = 1;
+    while (`node${i}` in loaded_msg) {
+        const node_data = loaded_msg[`node${i}`];
+        const node = {
+            ip: node_data['ip'],
+            port: node_data['port'],
+            encryption: node_data['encryption'],
+            index: i-1
+        };
+        node_list.push(node);
+        i++;
+    }
+    return node_list;
+}
+  </script>
+</body>
+</html>
